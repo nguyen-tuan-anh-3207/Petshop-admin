@@ -1,0 +1,22 @@
+import { baseApi } from '../../app/api/base';
+
+export const authApi = baseApi({
+  entityTypes: ['login'],
+  reducerPath: 'login',
+  resolvers: (builder) => ({
+    login: builder.mutation({
+      query: (data) => ({
+        url: `/login`,
+        body: data,
+        method: 'POST'
+      }),
+      transformResponse: (response) => response.data
+    })
+  })
+});
+
+export const { useLoginMutation } = authApi;
+
+export const {
+  endpoints: { login }
+} = authApi;
