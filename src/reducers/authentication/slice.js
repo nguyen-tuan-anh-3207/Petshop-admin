@@ -16,11 +16,11 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addMatcher(login.matchFulfilled, (state, { payload }) => {
-      const { token, user } = payload;
+      const { accessToken, user } = payload;
       state.user = user;
       setCookie({
         name: AUTH_TOKEN,
-        value: token
+        value: accessToken
       });
     });
   }
