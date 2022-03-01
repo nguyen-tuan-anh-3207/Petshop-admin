@@ -6,7 +6,7 @@ export const authApi = baseApi({
   resolvers: (builder) => ({
     login: builder.mutation({
       query: (data) => ({
-        url: `/login`,
+        url: `/auth/login_admin`,
         body: data,
         method: 'POST'
       }),

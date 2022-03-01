@@ -16,6 +16,7 @@ import {
   FormControlLabel
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import { useLoginMutation } from '../../../reducers/authentication/api';
 
 // ----------------------------------------------------------------------
 
@@ -23,20 +24,22 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
+  const [onLogin, { isSuccess, error }] = useLoginMutation();
+
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
+    username: Yup.string().required('Username is required'),
     password: Yup.string().required('Password is required')
   });
 
   const formik = useFormik({
     initialValues: {
-      email: '',
+      username: '',
       password: '',
       remember: true
     },
     validationSchema: LoginSchema,
-    onSubmit: () => {
-      navigate('/dashboard', { replace: true });
+    onSubmit: (values) => {
+      onLogin(values);
     }
   });
 
@@ -53,11 +56,11 @@ export default function LoginForm() {
           <TextField
             fullWidth
             autoComplete="username"
-            type="email"
-            label="Email address"
-            {...getFieldProps('email')}
-            error={Boolean(touched.email && errors.email)}
-            helperText={touched.email && errors.email}
+            type="username"
+            label="Username"
+            {...getFieldProps('username')}
+            error={Boolean(touched.username && errors.username)}
+            helperText={touched.username && errors.username}
           />
 
           <TextField
@@ -96,7 +99,7 @@ export default function LoginForm() {
           size="large"
           type="submit"
           variant="contained"
-          loading={isSubmitting}
+          // loading={isSubmitting}
         >
           Login
         </LoadingButton>

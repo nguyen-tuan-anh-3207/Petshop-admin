@@ -1,17 +1,21 @@
 import { useFormik } from 'formik';
 import { useState } from 'react';
+import { Icon } from '@iconify/react';
+import { Link as RouterLink } from 'react-router-dom';
+import plusFill from '@iconify/icons-eva/plus-fill';
+
 // material
-import { Container, Stack, Typography } from '@mui/material';
+import { Container, Stack, Typography, Button } from '@mui/material';
 // components
-import Page from '../components/Page';
+import Page from '../../components/Page';
 import {
   ProductSort,
   ProductList,
   ProductCartWidget,
   ProductFilterSidebar
-} from '../components/_dashboard/products';
+} from '../../components/_dashboard/products';
 //
-import PRODUCTS from '../_mocks_/products';
+import PRODUCTS from '../../_mocks_/products';
 
 // ----------------------------------------------------------------------
 
@@ -60,6 +64,14 @@ export default function EcommerceShop() {
           justifyContent="flex-end"
           sx={{ mb: 5 }}
         >
+          <Button
+            variant="contained"
+            component={RouterLink}
+            to="/dashboard/products/create"
+            startIcon={<Icon icon={plusFill} />}
+          >
+            New Product
+          </Button>
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
             <ProductFilterSidebar
               formik={formik}

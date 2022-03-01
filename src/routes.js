@@ -4,12 +4,12 @@ import DashboardLayout from './layouts/dashboard';
 import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 //
 import Login from './pages/Login';
-import Register from './pages/Register';
 import DashboardApp from './pages/DashboardApp';
-import Products from './pages/Products';
+import Products from './pages/product/Products';
 import Blog from './pages/Blog';
-import User from './pages/User';
+import User from './pages/user/User';
 import NotFound from './pages/Page404';
+import CreateProduct from './pages/product/Create';
 
 // ----------------------------------------------------------------------
 
@@ -24,15 +24,15 @@ export default function Router() {
         { path: 'app', element: <DashboardApp /> },
         { path: 'user', element: <User /> },
         { path: 'category', element: <Products /> },
-        { path: 'products', element: <Products /> },
+        // { path: 'products', element: <Products /> },
         { path: 'order', element: <Products /> },
         { path: 'blog', element: <Blog /> },
         {
-          path: 'member',
+          path: 'products',
           element: <Outlet />,
           children: [
-            { path: '/dashboard/member', element: <Products /> },
-            { path: '/dashboard/member/add', element: <Products /> }
+            { path: '/dashboard/products', element: <Products /> },
+            { path: '/dashboard/products/create', element: <CreateProduct /> }
           ]
         }
       ]
@@ -41,8 +41,7 @@ export default function Router() {
       path: '/',
       element: <LogoOnlyLayout />,
       children: [
-        { path: 'login', element: <Login /> },
-        { path: 'register', element: <Register /> },
+        { path: 'login', element: isAuth ? <Navigate to="/dashboard" /> : <Login /> },
         { path: '404', element: <NotFound /> },
         { path: '/', element: <Navigate to="/dashboard" /> },
         { path: '*', element: <Navigate to="/404" /> }
