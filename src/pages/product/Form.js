@@ -102,7 +102,7 @@ export default function ProductForm() {
           </Grid>
         </Grid>
 
-        <FormControl xs={{ m: 2 }}>
+        <FormControl sx={{ m: 2 }}>
           <LoadingButton
             size="large"
             type="submit"
