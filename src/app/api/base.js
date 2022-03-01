@@ -1,7 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import utilsString from '../../utils/string';
 
-const baseQuery = fetchBaseQuery({ baseUrl: process.env.REACT_APP_API_URL });
+const baseQuery = fetchBaseQuery({
+  baseUrl: process.env.REACT_APP_API_URL ?? 'https://pet-shop-220219.herokuapp.com/api'
+});
 
 const baseQueryWithIntercept = async (args, api, extraOptions) => {
   const result = await baseQuery(args, api, extraOptions);
@@ -26,7 +28,9 @@ export const baseApi = ({ reducerPath, entityTypes, resolvers }) => {
     });
   }
   return createApi({
-    baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_API_URL }),
+    baseQuery: fetchBaseQuery({
+      baseUrl: process.env.REACT_APP_API_URL ?? 'https://pet-shop-220219.herokuapp.com/api'
+    }),
     tagTypes,
     reducerPath,
     //  cache , The default time is seconds , Default duration 60 second
@@ -34,6 +38,8 @@ export const baseApi = ({ reducerPath, entityTypes, resolvers }) => {
     refetchOnMountOrArgChange: 30 * 60,
     endpoints: (build) => {
       const resolverEndpoints = resolvers?.(build);
+
+      console.log(resolverEndpoints);
 
       return {
         [`load${path}`]: build.query({

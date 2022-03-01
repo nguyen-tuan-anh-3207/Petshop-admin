@@ -17,8 +17,6 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder.addMatcher(login.matchFulfilled, (state, { payload }) => {
       const { token, user } = payload;
-
-      console.log('payload..', payload);
       state.user = user;
       setCookie({
         name: AUTH_TOKEN,

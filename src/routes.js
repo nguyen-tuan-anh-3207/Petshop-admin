@@ -14,7 +14,7 @@ import CreateProduct from './pages/product/Create';
 // ----------------------------------------------------------------------
 
 export default function Router() {
-  const isAuth = true;
+  const isAuth = false;
   return useRoutes([
     {
       path: '/dashboard',

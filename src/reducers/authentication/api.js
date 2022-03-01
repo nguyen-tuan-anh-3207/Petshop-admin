@@ -10,7 +10,7 @@ export const authApi = baseApi({
         body: data,
         method: 'POST'
       }),
-      transformResponse: (response) => response.data
+      transformResponse: (response) => response
     })
   })
 });
