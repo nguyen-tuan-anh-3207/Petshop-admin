@@ -10,11 +10,13 @@ import Blog from './pages/Blog';
 import User from './pages/user/User';
 import NotFound from './pages/Page404';
 import CreateProduct from './pages/product/Create';
+import { useAuth } from './hook/auth';
 
 // ----------------------------------------------------------------------
 
 export default function Router() {
-  const isAuth = false;
+  const isAuth = useAuth();
+
   return useRoutes([
     {
       path: '/dashboard',
@@ -24,7 +26,6 @@ export default function Router() {
         { path: 'app', element: <DashboardApp /> },
         { path: 'user', element: <User /> },
         { path: 'category', element: <Products /> },
-        // { path: 'products', element: <Products /> },
         { path: 'order', element: <Products /> },
         { path: 'blog', element: <Blog /> },
         {
@@ -32,7 +33,9 @@ export default function Router() {
           element: <Outlet />,
           children: [
             { path: '/dashboard/products', element: <Products /> },
-            { path: '/dashboard/products/create', element: <CreateProduct /> }
+            { path: '/dashboard/products/:id', element: <CreateProduct /> },
+            { path: '/dashboard/products/create', element: <CreateProduct /> },
+            { path: '/dashboard/products/edit/:id', element: <CreateProduct /> }
           ]
         }
       ]

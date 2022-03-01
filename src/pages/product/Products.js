@@ -64,14 +64,6 @@ export default function EcommerceShop() {
           justifyContent="flex-end"
           sx={{ mb: 5 }}
         >
-          <Button
-            variant="contained"
-            component={RouterLink}
-            to="/dashboard/products/create"
-            startIcon={<Icon icon={plusFill} />}
-          >
-            New Product
-          </Button>
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
             <ProductFilterSidebar
               formik={formik}
@@ -82,6 +74,14 @@ export default function EcommerceShop() {
             />
             <ProductSort />
           </Stack>
+          <Button
+            variant="contained"
+            component={RouterLink}
+            to="/dashboard/products/create"
+            startIcon={<Icon icon={plusFill} />}
+          >
+            New Product
+          </Button>
         </Stack>
 
         <ProductList products={PRODUCTS} />

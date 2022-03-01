@@ -1,33 +1,20 @@
 import * as Yup from 'yup';
 import { useState } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
-import { Icon } from '@iconify/react';
-import eyeFill from '@iconify/icons-eva/eye-fill';
-import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
 // material
-import {
-  Link,
-  Stack,
-  Checkbox,
-  TextField,
-  IconButton,
-  InputAdornment,
-  FormControlLabel,
-  Grid,
-  Divider,
-  FormControl
-} from '@mui/material';
+import { TextField, Grid, FormControl, Stack, Button } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
 // ----------------------------------------------------------------------
 
-export default function LoginForm() {
-  const navigate = useNavigate();
-
-  const LoginSchema = Yup.object().shape({
-    username: Yup.string().required('Username is required'),
-    password: Yup.string().required('Password is required')
+export default function ProductForm() {
+  const ProductSchema = Yup.object().shape({
+    name: Yup.string().required('Product name is required'),
+    description: Yup.string().required('Description is required'),
+    quantity: Yup.number().required('quantity is required'),
+    price: Yup.number().required('price is required'),
+    discount: Yup.number().required('discount is required')
+    // image: Yup.string().required('Description is required'),
   });
 
   const formik = useFormik({
@@ -35,12 +22,11 @@ export default function LoginForm() {
       name: '',
       description: '',
       price: 0,
-      stock: 0,
       quantity: 0,
       image: [],
       discount: 0
     },
-    validationSchema: LoginSchema,
+    validationSchema: ProductSchema,
     onSubmit: (values) => {
       console.log('values..', values);
     }
@@ -55,9 +41,6 @@ export default function LoginForm() {
           <Grid item xs={8}>
             <FormControl fullWidth sx={{ m: 2 }}>
               <TextField
-                fullWidth
-                id="outlined-start-adornment"
-                autoComplete="name"
                 type="name"
                 label="Name"
                 {...getFieldProps('name')}
@@ -85,20 +68,41 @@ export default function LoginForm() {
           <Grid item xs={8}>
             <FormControl fullWidth sx={{ m: 2 }}>
               <TextField
-                fullWidth
                 type="number"
                 label="Quantity"
-                {...getFieldProps('description')}
-                error={Boolean(touched.description && errors.description)}
-                helperText={touched.description && errors.description}
+                {...getFieldProps('quantity')}
+                error={Boolean(touched.quantity && errors.quantity)}
+                helperText={touched.quantity && errors.quantity}
+              />
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={8}>
+            <FormControl fullWidth sx={{ m: 2 }}>
+              <TextField
+                type="number"
+                label="Price"
+                {...getFieldProps('price')}
+                error={Boolean(touched.price && errors.price)}
+                helperText={touched.price && errors.price}
+              />
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={8}>
+            <FormControl fullWidth sx={{ m: 2 }}>
+              <TextField
+                type="number"
+                label="Discount"
+                {...getFieldProps('discount')}
+                error={Boolean(touched.discount && errors.discount)}
+                helperText={touched.discount && errors.discount}
               />
             </FormControl>
           </Grid>
         </Grid>
 
-        {/* </Stack> */}
-
-        <FormControl sx={{ m: 2 }}>
+        <FormControl xs={{ m: 2 }}>
           <LoadingButton
             size="large"
             type="submit"

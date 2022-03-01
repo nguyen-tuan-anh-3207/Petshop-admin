@@ -9,6 +9,7 @@ import { alpha } from '@mui/material/styles';
 import { Button, Box, Divider, MenuItem, Typography, Avatar, IconButton } from '@mui/material';
 // components
 import MenuPopover from '../../components/MenuPopover';
+import { useLogout } from '../../hook/auth';
 //
 import account from '../../_mocks_/account';
 
@@ -37,6 +38,8 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
+
+  const [onLogout] = useLogout();
 
   const handleOpen = () => {
     setOpen(true);
@@ -110,7 +113,7 @@ export default function AccountPopover() {
         ))}
 
         <Box sx={{ p: 2, pt: 1.5 }}>
-          <Button fullWidth color="inherit" variant="outlined">
+          <Button fullWidth color="inherit" variant="outlined" onClick={onLogout}>
             Logout
           </Button>
         </Box>

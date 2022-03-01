@@ -4,6 +4,7 @@ import { createBrowserHistory } from 'history';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import auth from '../reducers/authentication/slice';
 import { authApi } from '../reducers/authentication/api';
+import { productApi } from '../reducers/product/api';
 
 export const history = createBrowserHistory();
 
@@ -14,10 +15,11 @@ export const middleware = (getDefaultMiddleware) =>
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
     }
-  }).concat(routerMiddleware(history), epicMiddleware, authApi.middleware);
+  }).concat(routerMiddleware(history), epicMiddleware, authApi.middleware, productApi.middleware);
 
 export const rootReducer = {
   router: connectRouter(history),
   auth,
-  [authApi.reducerPath]: authApi.reducer
+  [authApi.reducerPath]: authApi.reducer,
+  [productApi.reducerPath]: productApi.reducer
 };
