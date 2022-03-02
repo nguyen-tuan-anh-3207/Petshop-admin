@@ -4,10 +4,14 @@ import { Link as RouterLink } from 'react-router-dom';
 // material
 import { Grid, Button, Container, Stack, Typography } from '@mui/material';
 // components
-import Page from '../components/Page';
-import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../components/_dashboard/blog';
+import Page from '../../components/Page';
+import {
+  CategoryPostCard,
+  CategoryPostsSort,
+  CategoryPostsSearch
+} from '../../components/_dashboard/category';
 //
-import POSTS from '../_mocks_/blog';
+import POSTS from '../../_mocks_/blog';
 
 // ----------------------------------------------------------------------
 
@@ -19,13 +23,13 @@ const SORT_OPTIONS = [
 
 // ----------------------------------------------------------------------
 
-export default function Blog() {
+export default function Categories() {
   return (
-    <Page title="Dashboard: Blog | Minimal-UI">
+    <Page title="Dashboard: Categories | Minimal-UI">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Blog
+            Category
           </Typography>
           <Button
             variant="contained"
@@ -33,18 +37,18 @@ export default function Blog() {
             to="#"
             startIcon={<Icon icon={plusFill} />}
           >
-            New Post
+            New Category
           </Button>
         </Stack>
 
         <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
-          <BlogPostsSearch posts={POSTS} />
-          <BlogPostsSort options={SORT_OPTIONS} />
+          <CategoryPostsSearch posts={POSTS} />
+          <CategoryPostsSort options={SORT_OPTIONS} />
         </Stack>
 
         <Grid container spacing={3}>
           {POSTS.map((post, index) => (
-            <BlogPostCard key={post.id} post={post} index={index} />
+            <CategoryPostCard key={post.id} post={post} index={index} />
           ))}
         </Grid>
       </Container>

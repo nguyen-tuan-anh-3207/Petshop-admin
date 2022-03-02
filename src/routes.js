@@ -6,11 +6,13 @@ import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 import Login from './pages/Login';
 import DashboardApp from './pages/DashboardApp';
 import Products from './pages/product/Products';
-import Blog from './pages/Blog';
+import Blog from './pages/blog/Blog';
 import User from './pages/user/User';
 import NotFound from './pages/Page404';
 import CreateProduct from './pages/product/Create';
 import { useAuth } from './hook/auth';
+import Categories from './pages/category/Categories';
+import Order from './pages/order/Order';
 
 // ----------------------------------------------------------------------
 
@@ -25,8 +27,8 @@ export default function Router() {
         { element: <Navigate to="/dashboard/app" replace /> },
         { path: 'app', element: <DashboardApp /> },
         { path: 'user', element: <User /> },
-        { path: 'category', element: <Products /> },
-        { path: 'order', element: <Products /> },
+        { path: 'category', element: <Categories /> },
+        { path: 'order', element: <Order /> },
         { path: 'blog', element: <Blog /> },
         {
           path: 'products',
@@ -34,8 +36,7 @@ export default function Router() {
           children: [
             { path: '/dashboard/products', element: <Products /> },
             { path: '/dashboard/products/:id', element: <CreateProduct /> },
-            { path: '/dashboard/products/create', element: <CreateProduct /> },
-            { path: '/dashboard/products/edit/:id', element: <CreateProduct /> }
+            { path: '/dashboard/products/create', element: <CreateProduct /> }
           ]
         }
       ]

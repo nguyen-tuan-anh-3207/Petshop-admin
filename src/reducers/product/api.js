@@ -1,8 +1,8 @@
 import { baseApi } from '../../app/api/base';
 
 export const productApi = baseApi({
-  entityTypes: ['product'],
-  reducerPath: 'product',
+  entityTypes: ['products'],
+  reducerPath: 'products',
   resolvers: (builder) => ({
     uploadFile: builder.mutation({
       query: (data) => {
