@@ -1,23 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { getCookie } from 'src/utils/cookie';
+import { getCookie } from '../../utils/cookie';
 import utilsString from '../../utils/string';
-
-const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.REACT_APP_API_URL ?? 'http://localhost:8080/api'
-});
-
-const baseQueryWithIntercept = async (args, api, extraOptions) => {
-  const result = await baseQuery(args, api, extraOptions);
-
-  const { data, error } = result;
-  if (error) {
-    // handle error
-  }
-
-  if (Object.is(data?.code, 0)) {
-    return result;
-  }
-};
 
 export const baseApi = ({ reducerPath, entityTypes, resolvers }) => {
   const path = utilsString.upperCaseFirstLetter(utilsString.strToCamelCase(reducerPath));
@@ -32,11 +15,11 @@ export const baseApi = ({ reducerPath, entityTypes, resolvers }) => {
     baseQuery: fetchBaseQuery({
       baseUrl: process.env.REACT_APP_API_URL ?? 'http://localhost:8080/api',
       prepareHeaders: (headers, { getState }) => {
-        const accessToken = getCookie('token')
+        const accessToken = getCookie('token');
         if (accessToken) {
-          headers.set('authorization', `Bearer ${accessToken}`)
+          headers.set('authorization', `Bearer ${accessToken}`);
         }
-        return headers
+        return headers;
       }
     }),
     tagTypes,
@@ -50,7 +33,7 @@ export const baseApi = ({ reducerPath, entityTypes, resolvers }) => {
       return {
         [`load${path}`]: build.query({
           query: (id) => `/${path}/${id}`,
-          transformResponse: (response) => response.data,
+          transformResponse: (response) => response,
           providesTags: (result) => {
             if (result) {
               const providers = entityTypes.map((type) => ({ type, _id: result._id }));
@@ -61,7 +44,7 @@ export const baseApi = ({ reducerPath, entityTypes, resolvers }) => {
         }),
         [`loadPaging${path}`]: build.query({
           query: () => `/${path}`,
-          transformResponse: (response) => response.data,
+          transformResponse: (response) => response,
           providesTags: (result) => {
             const provides = [];
             if (result?.length > 0) {
@@ -116,7 +99,6 @@ export const baseApi = ({ reducerPath, entityTypes, resolvers }) => {
             const providers = [];
             entityTypes.forEach((type) => {
               providers.push({ type });
-              providers.push({ type: `${type}Count` });
             });
             return providers;
           }

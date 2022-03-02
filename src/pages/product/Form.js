@@ -4,12 +4,12 @@ import { styled } from '@mui/material/styles';
 import { Form, FormikProvider, useFormik } from 'formik';
 import { useState } from 'react';
 import * as Yup from 'yup';
-import * as axios from 'axios'
-import UploadImage from 'src/components/Upload';
-import { useCreateProductMutation, useUploadFileMutation } from 'src/reducers/product/api';
+import * as axios from 'axios';
+import UploadImage from '../../components/Upload';
+import { useCreateProductMutation, useUploadFileMutation } from '../../reducers/product/api';
 
 const Input = styled('input')({
-  display: 'none',
+  display: 'none'
 });
 
 const ProductSchema = Yup.object().shape({
@@ -22,10 +22,9 @@ const ProductSchema = Yup.object().shape({
 });
 
 export default function ProductForm() {
+  const [image, setImage] = useState('');
 
-  const [image, setImage] = useState('')
-
-  const [createProduct, { error, isSuccess }] = useCreateProductMutation()
+  const [createProduct, { error, isSuccess }] = useCreateProductMutation();
 
   const formik = useFormik({
     initialValues: {
@@ -38,11 +37,11 @@ export default function ProductForm() {
     },
     validationSchema: ProductSchema,
     onSubmit: (values) => {
-      createProduct({ ...values, image })
+      createProduct({ ...values, image });
     }
   });
 
-  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } = formik;
+  const { errors, touched, handleSubmit, getFieldProps } = formik;
 
   return (
     <FormikProvider value={formik}>
@@ -100,18 +99,17 @@ export default function ProductForm() {
           <UploadImage setImage={setImage} />
         </FormControl>
 
-
         <FormControl sx={{ m: 2 }}>
           <LoadingButton
             size="large"
             type="submit"
             variant="contained"
-          // loading={isSubmitting}
+            // loading={isSubmitting}
           >
             Create
           </LoadingButton>
         </FormControl>
       </Form>
-    </FormikProvider >
+    </FormikProvider>
   );
 }
