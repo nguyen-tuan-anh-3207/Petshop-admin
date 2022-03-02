@@ -1,8 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { getCookie } from 'src/utils/cookie';
 import utilsString from '../../utils/string';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.REACT_APP_API_URL ?? 'https://pet-shop-220219.herokuapp.com/api'
+  baseUrl: process.env.REACT_APP_API_URL ?? 'http://localhost:8080/api'
 });
 
 const baseQueryWithIntercept = async (args, api, extraOptions) => {
@@ -29,7 +30,14 @@ export const baseApi = ({ reducerPath, entityTypes, resolvers }) => {
   }
   return createApi({
     baseQuery: fetchBaseQuery({
-      baseUrl: process.env.REACT_APP_API_URL ?? 'https://pet-shop-220219.herokuapp.com/api'
+      baseUrl: process.env.REACT_APP_API_URL ?? 'http://localhost:8080/api',
+      prepareHeaders: (headers, { getState }) => {
+        const accessToken = getCookie('token')
+        if (accessToken) {
+          headers.set('authorization', `Bearer ${accessToken}`)
+        }
+        return headers
+      }
     }),
     tagTypes,
     reducerPath,
@@ -38,8 +46,6 @@ export const baseApi = ({ reducerPath, entityTypes, resolvers }) => {
     refetchOnMountOrArgChange: 30 * 60,
     endpoints: (build) => {
       const resolverEndpoints = resolvers?.(build);
-
-      console.log(resolverEndpoints);
 
       return {
         [`load${path}`]: build.query({
