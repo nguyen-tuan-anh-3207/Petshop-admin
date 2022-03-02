@@ -9,8 +9,6 @@ import { styled } from '@mui/material/styles';
 import { fCurrency } from '../../../utils/formatNumber';
 //
 import Label from '../../Label';
-import ColorPreview from '../../ColorPreview';
-import IconButton from 'src/theme/overrides/IconButton';
 
 // ----------------------------------------------------------------------
 
@@ -60,9 +58,7 @@ export default function ShopProductCard({ product }) {
         </Link>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          {/* <IconButton> */}
           <Icon icon="eva:color-picker-outline" width={22} height={22} />
-          {/* </IconButton> */}
           <Typography variant="subtitle1">
             <Typography
               component="span"

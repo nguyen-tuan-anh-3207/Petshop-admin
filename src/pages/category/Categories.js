@@ -34,7 +34,7 @@ export default function Categories() {
           <Button
             variant="contained"
             component={RouterLink}
-            to="#"
+            to="/dashboard/category/create"
             startIcon={<Icon icon={plusFill} />}
           >
             New Category

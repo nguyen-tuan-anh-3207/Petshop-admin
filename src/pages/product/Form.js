@@ -1,5 +1,5 @@
 import { LoadingButton } from '@mui/lab';
-import { Button, FormControl, Grid, TextField } from '@mui/material';
+import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Form, FormikProvider, useFormik } from 'formik';
 import { useState } from 'react';
@@ -7,41 +7,40 @@ import * as Yup from 'yup';
 import * as axios from 'axios';
 import UploadImage from '../../components/Upload';
 import { useCreateProductMutation, useUploadFileMutation } from '../../reducers/product/api';
-
-const Input = styled('input')({
-  display: 'none'
-});
+import { useLoadPagingCategoriesQuery } from '../../reducers/category/api';
 
 const ProductSchema = Yup.object().shape({
   name: Yup.string().required('Product name is required'),
   description: Yup.string().required('Description is required'),
   quantity: Yup.number().required('quantity is required'),
-  price: Yup.number().required('price is required'),
-  discount: Yup.number().required('discount is required')
-  // image: Yup.string().required('Description is required'),
+  price: Yup.number().required('price is required')
 });
 
 export default function ProductForm() {
   const [image, setImage] = useState('');
+  const [categoryId, setCategoryId] = useState('');
 
   const [createProduct, { error, isSuccess }] = useCreateProductMutation();
+  const { data } = useLoadPagingCategoriesQuery();
 
   const formik = useFormik({
     initialValues: {
       name: '',
       description: '',
       price: 0,
-      quantity: 0,
-      image: [],
-      discount: 0
+      quantity: 0
     },
     validationSchema: ProductSchema,
     onSubmit: (values) => {
-      createProduct({ ...values, image });
+      createProduct({ ...values, image, categoryId });
     }
   });
 
   const { errors, touched, handleSubmit, getFieldProps } = formik;
+
+  const handleChange = (e) => {
+    setCategoryId(e.target.value);
+  };
 
   return (
     <FormikProvider value={formik}>
@@ -78,7 +77,6 @@ export default function ProductForm() {
         </FormControl>
         <FormControl fullWidth sx={{ m: 2 }}>
           <TextField
-            type="number"
             label="Price"
             {...getFieldProps('price')}
             error={Boolean(touched.price && errors.price)}
@@ -87,13 +85,20 @@ export default function ProductForm() {
         </FormControl>
 
         <FormControl fullWidth sx={{ m: 2 }}>
-          <TextField
-            type="number"
-            label="Discount"
-            {...getFieldProps('discount')}
-            error={Boolean(touched.discount && errors.discount)}
-            helperText={touched.discount && errors.discount}
-          />
+          <InputLabel id="demo-simple-select-label">Category</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={categoryId}
+            label="Category"
+            onChange={handleChange}
+          >
+            {data?.categories?.map((category) => (
+              <MenuItem key={category._id} value={category._id}>
+                {category.name}
+              </MenuItem>
+            ))}
+          </Select>
         </FormControl>
         <FormControl fullWidth sx={{ m: 2 }}>
           <UploadImage setImage={setImage} />
