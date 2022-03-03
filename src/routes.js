@@ -10,6 +10,8 @@ import Blog from './pages/blog/Blog';
 import User from './pages/user/User';
 import NotFound from './pages/Page404';
 import CreateProduct from './pages/product/Create';
+import CreateBlog from './pages/blog/Create';
+import EditProduct from './pages/product/Edit';
 import CreateCategory from './pages/category/Create';
 import { useAuth } from './hook/auth';
 import Categories from './pages/category/Categories';
@@ -31,11 +33,19 @@ export default function Router() {
         { path: 'order', element: <Order /> },
         { path: 'blog', element: <Blog /> },
         {
+          path: 'blog',
+          element: <Outlet />,
+          children: [
+            { path: '/dashboard/blog', element: <Blog /> },
+            { path: '/dashboard/blog/create', element: <CreateBlog /> }
+          ]
+        },
+        {
           path: 'products',
           element: <Outlet />,
           children: [
             { path: '/dashboard/products', element: <Products /> },
-            { path: '/dashboard/products/:id', element: <CreateProduct /> },
+            { path: '/dashboard/products/:id', element: <EditProduct /> },
             { path: '/dashboard/products/create', element: <CreateProduct /> }
           ]
         },

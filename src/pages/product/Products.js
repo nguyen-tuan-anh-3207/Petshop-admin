@@ -8,27 +8,20 @@ import plusFill from '@iconify/icons-eva/plus-fill';
 import { Container, Stack, Typography, Button } from '@mui/material';
 // components
 import Page from '../../components/Page';
-import {
-  ProductSort,
-  ProductList,
-  ProductCartWidget,
-  ProductFilterSidebar
-} from '../../components/_dashboard/products';
-//
-import PRODUCTS from '../../_mocks_/products';
+import { ProductList, ProductFilterSidebar } from '../../components/_dashboard/products';
+import { useLoadPagingProductsQuery } from '../../reducers/product/api';
 
 // ----------------------------------------------------------------------
 
 export default function EcommerceShop() {
   const [openFilter, setOpenFilter] = useState(false);
 
+  const { data } = useLoadPagingProductsQuery();
+
   const formik = useFormik({
     initialValues: {
-      gender: '',
       category: '',
-      colors: '',
-      priceRange: '',
-      rating: ''
+      priceRange: ''
     },
     onSubmit: () => {
       setOpenFilter(false);
@@ -72,7 +65,6 @@ export default function EcommerceShop() {
               onOpenFilter={handleOpenFilter}
               onCloseFilter={handleCloseFilter}
             />
-            <ProductSort />
           </Stack>
           <Button
             variant="contained"
@@ -84,7 +76,7 @@ export default function EcommerceShop() {
           </Button>
         </Stack>
 
-        <ProductList products={PRODUCTS} />
+        <ProductList products={data?.products} />
       </Container>
     </Page>
   );

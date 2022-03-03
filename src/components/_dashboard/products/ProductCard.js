@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 import { Icon } from '@iconify/react';
+import { useNavigate } from 'react-router-dom';
 
 // material
 import { Box, Card, Link, Typography, Stack } from '@mui/material';
@@ -27,27 +28,17 @@ ShopProductCard.propTypes = {
 };
 
 export default function ShopProductCard({ product }) {
-  const { name, cover, price, colors, status, priceSale } = product;
+  const { name, image, price, priceSale, _id } = product;
+  const navigate = useNavigate();
+
+  const handleEdit = () => {
+    navigate(`${_id}`);
+  };
 
   return (
     <Card>
       <Box sx={{ pt: '100%', position: 'relative' }}>
-        {status && (
-          <Label
-            variant="filled"
-            color={(status === 'sale' && 'error') || 'info'}
-            sx={{
-              zIndex: 9,
-              top: 16,
-              right: 16,
-              position: 'absolute',
-              textTransform: 'uppercase'
-            }}
-          >
-            {status}
-          </Label>
-        )}
-        <ProductImgStyle alt={name} src={cover} />
+        <ProductImgStyle alt={name} src={image?.url} />
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
@@ -58,21 +49,8 @@ export default function ShopProductCard({ product }) {
         </Link>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Icon icon="eva:color-picker-outline" width={22} height={22} />
-          <Typography variant="subtitle1">
-            <Typography
-              component="span"
-              variant="body1"
-              sx={{
-                color: 'text.disabled',
-                textDecoration: 'line-through'
-              }}
-            >
-              {priceSale && fCurrency(priceSale)}
-            </Typography>
-            &nbsp;
-            {fCurrency(price)}
-          </Typography>
+          <Icon icon="eva:color-picker-outline" width={22} height={22} onClick={handleEdit} />
+          <Typography variant="subtitle1">{fCurrency(price)}</Typography>
         </Stack>
       </Stack>
     </Card>

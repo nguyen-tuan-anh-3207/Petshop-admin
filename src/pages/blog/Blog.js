@@ -30,7 +30,7 @@ export default function Blog() {
           <Button
             variant="contained"
             component={RouterLink}
-            to="#"
+            to="/dashboard/blog/create"
             startIcon={<Icon icon={plusFill} />}
           >
             New Post

@@ -29,14 +29,14 @@ export const productApi = baseApi({
 });
 
 export const {
-  useLoadProductQuery,
-  useLoadPagingProductQuery,
-  useUpdateProductMutation,
-  useDeleteProductMutation,
+  useLoadProductsQuery,
+  useLoadPagingProductsQuery,
+  useUpdateProductsMutation,
+  useDeleteProductsMutation,
   useCreateProductMutation,
   useUploadFileMutation
 } = productApi;
 
 export const {
-  endpoints: { loadProduct, loadPagingProduct, updateProduct, deleteProduct, createProduct }
+  endpoints: { loadProducts, loadPagingProducts, updateProducts, deleteProducts, createProduct }
 } = productApi;

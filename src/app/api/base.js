@@ -32,7 +32,7 @@ export const baseApi = ({ reducerPath, entityTypes, resolvers }) => {
 
       return {
         [`load${path}`]: build.query({
-          query: (id) => `/${path}/${id}`,
+          query: (id) => `/${reducerPath}/${id}`,
           transformResponse: (response) => response,
           providesTags: (result) => {
             if (result) {
@@ -43,7 +43,7 @@ export const baseApi = ({ reducerPath, entityTypes, resolvers }) => {
           }
         }),
         [`loadPaging${path}`]: build.query({
-          query: () => `/${path}`,
+          query: () => `/${reducerPath}`,
           transformResponse: (response) => response.result,
           providesTags: (result) => {
             const provides = [];
@@ -63,7 +63,7 @@ export const baseApi = ({ reducerPath, entityTypes, resolvers }) => {
         }),
         [`create${path}`]: build.mutation({
           query: (data) => ({
-            url: `/${path}`,
+            url: `/${reducerPath}`,
             body: data,
             method: 'POST'
           }),
@@ -76,9 +76,9 @@ export const baseApi = ({ reducerPath, entityTypes, resolvers }) => {
           }
         }),
         [`update${path}`]: build.mutation({
-          query: ({ id, data }) => ({
-            url: `/${path}/${id}`,
-            method: 'PATCH',
+          query: (data) => ({
+            url: `/${reducerPath}`,
+            method: 'PUT',
             body: data
           }),
           invalidatesTags: (result, error, { id }) => {
@@ -92,7 +92,7 @@ export const baseApi = ({ reducerPath, entityTypes, resolvers }) => {
         }),
         [`delete${path}`]: build.mutation({
           query: (id) => ({
-            url: `/${path}/${id}`,
+            url: `/${reducerPath}/${id}`,
             method: 'DELETE'
           }),
           invalidatesTags: () => {

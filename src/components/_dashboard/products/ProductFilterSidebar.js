@@ -23,6 +23,7 @@ import {
 //
 import Scrollbar from '../../Scrollbar';
 import ColorManyPicker from '../../ColorManyPicker';
+import { useLoadPagingCategoriesQuery } from '../../../reducers/category/api';
 
 // ----------------------------------------------------------------------
 
@@ -70,6 +71,8 @@ export default function ShopFilterSidebar({
 }) {
   const { values, getFieldProps, handleChange } = formik;
 
+  const { data } = useLoadPagingCategoriesQuery();
+
   return (
     <>
       <Button
@@ -111,47 +114,18 @@ export default function ShopFilterSidebar({
               <Stack spacing={3} sx={{ p: 3 }}>
                 <div>
                   <Typography variant="subtitle1" gutterBottom>
-                    Gender
-                  </Typography>
-                  <FormGroup>
-                    {FILTER_GENDER_OPTIONS.map((item) => (
-                      <FormControlLabel
-                        key={item}
-                        control={
-                          <Checkbox
-                            {...getFieldProps('gender')}
-                            value={item}
-                            checked={values.gender.includes(item)}
-                          />
-                        }
-                        label={item}
-                      />
-                    ))}
-                  </FormGroup>
-                </div>
-
-                <div>
-                  <Typography variant="subtitle1" gutterBottom>
                     Category
                   </Typography>
                   <RadioGroup {...getFieldProps('category')}>
-                    {FILTER_CATEGORY_OPTIONS.map((item) => (
-                      <FormControlLabel key={item} value={item} control={<Radio />} label={item} />
+                    {data?.categories?.map((item) => (
+                      <FormControlLabel
+                        key={item._id}
+                        value={item._id}
+                        control={<Radio />}
+                        label={item.name}
+                      />
                     ))}
                   </RadioGroup>
-                </div>
-
-                <div>
-                  <Typography variant="subtitle1" gutterBottom>
-                    Colour
-                  </Typography>
-                  <ColorManyPicker
-                    name="colors"
-                    colors={FILTER_COLOR_OPTIONS}
-                    onChange={handleChange}
-                    onChecked={(color) => values.colors.includes(color)}
-                    sx={{ maxWidth: 36 * 4 }}
-                  />
                 </div>
 
                 <div>
@@ -165,41 +139,6 @@ export default function ShopFilterSidebar({
                         value={item.value}
                         control={<Radio />}
                         label={item.label}
-                      />
-                    ))}
-                  </RadioGroup>
-                </div>
-
-                <div>
-                  <Typography variant="subtitle1" gutterBottom>
-                    Rating
-                  </Typography>
-                  <RadioGroup {...getFieldProps('rating')}>
-                    {FILTER_RATING_OPTIONS.map((item, index) => (
-                      <FormControlLabel
-                        key={item}
-                        value={item}
-                        control={
-                          <Radio
-                            disableRipple
-                            color="default"
-                            icon={<Rating readOnly value={4 - index} />}
-                            checkedIcon={<Rating readOnly value={4 - index} />}
-                          />
-                        }
-                        label="& Up"
-                        sx={{
-                          my: 0.5,
-                          borderRadius: 1,
-                          '& > :first-of-type': { py: 0.5 },
-                          '&:hover': {
-                            opacity: 0.48,
-                            '& > *': { bgcolor: 'transparent' }
-                          },
-                          ...(values.rating.includes(item) && {
-                            bgcolor: 'background.neutral'
-                          })
-                        }}
                       />
                     ))}
                   </RadioGroup>
