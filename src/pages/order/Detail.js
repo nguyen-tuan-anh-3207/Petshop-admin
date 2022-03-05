@@ -15,7 +15,11 @@ const Detail = () => {
     console.log('detail...', order?.details)
 
     const columns = [
-        { id: 'product', label: 'Tên sản phẩm', render: (value) => value?.name ?? '-' },
+        {
+            id: 'product',
+            label: 'Tên sản phẩm',
+            render: (value) => value?.name ?? '-'
+        },
         {
             id: 'category',
             label: 'Danh mục',
@@ -33,7 +37,7 @@ const Detail = () => {
         },
         {
             id: 'subTotal',
-            label: 'Tổng tiền',
+            label: 'Thành tiền',
             render: (value) => value ? value.toLocaleString('en-US') : '-'
         },
     ];
@@ -84,6 +88,12 @@ const Detail = () => {
                             columns={columns}
                             pagination={false}
                         />
+                        <Typography gutterBottom variant="5" component="div" style={{ width: '100%', marginTop: '1rem' }}>
+                            Tổng tiền: {' '}
+                            <Typography gutterBottom variant="5" component="span" style={{ fontWeight: 'bold' }}>
+                                {order?.total.toLocaleString('en-US')}
+                            </Typography>
+                        </Typography>
                     </Grid>
                 </Grid>
             )}

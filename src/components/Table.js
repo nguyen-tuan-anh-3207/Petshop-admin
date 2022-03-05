@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { TableFooter, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,7 +9,6 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import * as React from 'react';
 import { DEFAULT_PAGE_SIZE, DEFAULT_PAGE_INDEX } from '../constants/string';
-
 
 export default function CustomTable(props) {
 
