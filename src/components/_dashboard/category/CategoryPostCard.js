@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
+import { Icon } from '@iconify/react';
+
 // material
 import { alpha, styled } from '@mui/material/styles';
-import { Box, Link, Card, Grid, Avatar, Typography, CardContent } from '@mui/material';
+import { Box, Link, Card, Grid, Avatar, Typography, CardContent, IconButton } from '@mui/material';
+import { useDeleteCategoriesMutation } from '../../../reducers/category/api';
 
 // ----------------------------------------------------------------------
 
@@ -38,6 +41,12 @@ export default function CategoryPostCard({ category, index }) {
   const { image, name } = category;
   const latestPostLarge = index === 0;
   const latestPost = index === 1 || index === 2;
+
+  const [onDelete] = useDeleteCategoriesMutation();
+
+  const handleDelete = () => {
+    onDelete(category._id);
+  };
 
   return (
     <Grid item xs={12} sm={latestPostLarge ? 12 : 6} md={latestPostLarge ? 6 : 3}>
@@ -91,6 +100,12 @@ export default function CategoryPostCard({ category, index }) {
           >
             {name}
           </TitleStyle>
+          <IconButton>
+            <Icon icon="eva:color-picker-outline" width={22} height={22} />
+          </IconButton>
+          <IconButton onClick={handleDelete}>
+            <Icon icon="eva:close-circle-outline" width={22} height={22} />
+          </IconButton>
         </CardContent>
       </Card>
     </Grid>

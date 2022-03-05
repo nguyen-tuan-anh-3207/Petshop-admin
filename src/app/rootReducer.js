@@ -7,6 +7,7 @@ import { authApi } from '../reducers/authentication/api';
 import { productApi } from '../reducers/product/api';
 import { categoryApi } from '../reducers/category/api';
 import { blogApi } from '../reducers/blog/api';
+import { userApi } from '../reducers/user/api';
 
 export const history = createBrowserHistory();
 
@@ -23,7 +24,8 @@ export const middleware = (getDefaultMiddleware) =>
     authApi.middleware,
     productApi.middleware,
     categoryApi.middleware,
-    blogApi.middleware
+    blogApi.middleware,
+    userApi.middleware
   );
 
 export const rootReducer = {
@@ -32,5 +34,6 @@ export const rootReducer = {
   [authApi.reducerPath]: authApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
   [categoryApi.reducerPath]: categoryApi.reducer,
-  [blogApi.reducerPath]: blogApi.reducer
+  [blogApi.reducerPath]: blogApi.reducer,
+  [userApi.reducerPath]: userApi.reducer
 };

@@ -28,6 +28,7 @@ import SearchNotFound from '../../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../../components/_dashboard/user';
 //
 import USERLIST from '../../_mocks_/user';
+import { useLoadPagingUsersQuery } from '../../reducers/user/api';
 
 // ----------------------------------------------------------------------
 
@@ -78,6 +79,8 @@ export default function User() {
   const [orderBy, setOrderBy] = useState('name');
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const { data } = useLoadPagingUsersQuery();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
