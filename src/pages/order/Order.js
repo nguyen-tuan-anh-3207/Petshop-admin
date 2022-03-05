@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useLocation } from 'react-router-dom';
+import { useUpdateSearch } from 'src/hook/useSearchParams';
 import { useLoadPagingOrdersQuery } from 'src/reducers/order/api';
 import CustomTable from '../../components/Table';
 import { datetime } from '../../extensions';
@@ -6,13 +8,14 @@ import { datetime } from '../../extensions';
 const columns = [
   { id: 'code', label: 'Mã đơn hàng' },
   {
-    id: 'customer',
+    id: 'phoneNumber',
     label: 'Số điện thoại',
-    render: (value) => value?.phoneNumber ?? '-'
+    render: (value) => value ?? '-'
   },
   {
     id: 'address',
     label: 'Địa chỉ',
+    render: (value) => value ?? '-'
   },
   {
     id: 'createdAt',
@@ -27,23 +30,21 @@ const columns = [
 ];
 
 export default function OrderList() {
-  const { data, isLoading, error } = useLoadPagingOrdersQuery()
+
+  const { search, pathname } = useLocation()
+
+  const { handleChangePageSize } = useUpdateSearch(pathname, search)
+
+  const { data } = useLoadPagingOrdersQuery(search)
+
   const { orders, total } = data ?? {}
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  console.log('orders...', orders)
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
 
   return (
-    <CustomTable title={'Danh sách đơn hàng'} data={orders} total={total} columns={columns} />
+    <CustomTable
+      title={'Danh sách đơn hàng'}
+      data={orders}
+      total={total}
+      columns={columns}
+      handleChangePageSize={handleChangePageSize} />
   );
 }

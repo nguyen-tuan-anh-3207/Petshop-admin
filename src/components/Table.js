@@ -11,17 +11,19 @@ import * as React from 'react';
 
 export default function CustomTable(props) {
 
-    const { title, data, total, columns } = props
+    const { title, data, total, columns, handleChangePageSize } = props
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rowsPerPage, setRowsPerPage] = React.useState(2);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
+        handleChangePageSize(newPage, rowsPerPage)
     };
 
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
+        handleChangePageSize(page, event.target.value)
     };
 
     return (
@@ -70,7 +72,7 @@ export default function CustomTable(props) {
                 </Table>
             </TableContainer>
             <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
+                rowsPerPageOptions={[2, 25, 100]}
                 component="div"
                 count={total}
                 rowsPerPage={rowsPerPage}

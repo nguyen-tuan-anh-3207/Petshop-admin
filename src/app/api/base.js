@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getCookie } from '../../utils/cookie';
 import utilsString from '../../utils/string';
+import queryString from 'query-string'
 
 export const baseApi = ({ reducerPath, entityTypes, resolvers }) => {
   const path = utilsString.upperCaseFirstLetter(utilsString.strToCamelCase(reducerPath));
@@ -43,7 +44,7 @@ export const baseApi = ({ reducerPath, entityTypes, resolvers }) => {
           }
         }),
         [`loadPaging${path}`]: build.query({
-          query: () => `/${reducerPath}`,
+          query: (filter) => `/${reducerPath}${filter}`,
           transformResponse: (response) => response.result,
           providesTags: (result) => {
             const provides = [];
