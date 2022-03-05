@@ -34,8 +34,8 @@ CategoryPostCard.propTypes = {
   index: PropTypes.number
 };
 
-export default function CategoryPostCard({ post, index }) {
-  const { cover, title, view, comment, share, author, createdAt } = post;
+export default function CategoryPostCard({ category, index }) {
+  const { image, name } = category;
   const latestPostLarge = index === 0;
   const latestPost = index === 1 || index === 2;
 
@@ -63,7 +63,7 @@ export default function CategoryPostCard({ post, index }) {
             })
           }}
         >
-          <CoverImgStyle alt={title} src={cover} />
+          <CoverImgStyle alt={name} src={image?.url ?? '/static/mock-images/covers/cover_4.jpg'} />
         </CardMediaStyle>
 
         <CardContent
@@ -89,7 +89,7 @@ export default function CategoryPostCard({ post, index }) {
               })
             }}
           >
-            {title}
+            {name}
           </TitleStyle>
         </CardContent>
       </Card>

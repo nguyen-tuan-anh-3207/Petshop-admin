@@ -4,12 +4,13 @@ import { Icon } from '@iconify/react';
 import { useNavigate } from 'react-router-dom';
 
 // material
-import { Box, Card, Link, Typography, Stack } from '@mui/material';
+import { Box, Card, Link, Typography, Stack, IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 // utils
 import { fCurrency } from '../../../utils/formatNumber';
 //
 import Label from '../../Label';
+import { useDeleteProductsMutation } from '../../../reducers/product/api';
 
 // ----------------------------------------------------------------------
 
@@ -28,11 +29,17 @@ ShopProductCard.propTypes = {
 };
 
 export default function ShopProductCard({ product }) {
-  const { name, image, price, priceSale, _id } = product;
+  const { name, image, price, _id } = product;
   const navigate = useNavigate();
+
+  const [onDelete] = useDeleteProductsMutation();
 
   const handleEdit = () => {
     navigate(`${_id}`);
+  };
+
+  const handleDelete = () => {
+    onDelete(_id);
   };
 
   return (
@@ -49,8 +56,13 @@ export default function ShopProductCard({ product }) {
         </Link>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Icon icon="eva:color-picker-outline" width={22} height={22} onClick={handleEdit} />
+          <IconButton onClick={handleEdit}>
+            <Icon icon="eva:color-picker-outline" width={22} height={22} />
+          </IconButton>
           <Typography variant="subtitle1">{fCurrency(price)}</Typography>
+          <IconButton onClick={handleDelete}>
+            <Icon icon="eva:close-circle-outline" width={22} height={22} />
+          </IconButton>
         </Stack>
       </Stack>
     </Card>

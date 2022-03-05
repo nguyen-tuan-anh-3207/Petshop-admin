@@ -10,6 +10,7 @@ import {
   CategoryPostsSort,
   CategoryPostsSearch
 } from '../../components/_dashboard/category';
+import { useLoadPagingCategoriesQuery } from '../../reducers/category/api';
 //
 import POSTS from '../../_mocks_/blog';
 
@@ -24,6 +25,8 @@ const SORT_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function Categories() {
+  const { data } = useLoadPagingCategoriesQuery();
+
   return (
     <Page title="Dashboard: Categories | Minimal-UI">
       <Container>
@@ -47,8 +50,8 @@ export default function Categories() {
         </Stack>
 
         <Grid container spacing={3}>
-          {POSTS.map((post, index) => (
-            <CategoryPostCard key={post.id} post={post} index={index} />
+          {data?.categories?.map((category, index) => (
+            <CategoryPostCard key={category._id} category={category} index={category._id} />
           ))}
         </Grid>
       </Container>

@@ -6,6 +6,7 @@ import auth from '../reducers/authentication/slice';
 import { authApi } from '../reducers/authentication/api';
 import { productApi } from '../reducers/product/api';
 import { categoryApi } from '../reducers/category/api';
+import { blogApi } from '../reducers/blog/api';
 
 export const history = createBrowserHistory();
 
@@ -21,7 +22,8 @@ export const middleware = (getDefaultMiddleware) =>
     epicMiddleware,
     authApi.middleware,
     productApi.middleware,
-    categoryApi.middleware
+    categoryApi.middleware,
+    blogApi.middleware
   );
 
 export const rootReducer = {
@@ -29,5 +31,6 @@ export const rootReducer = {
   auth,
   [authApi.reducerPath]: authApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
-  [categoryApi.reducerPath]: categoryApi.reducer
+  [categoryApi.reducerPath]: categoryApi.reducer,
+  [blogApi.reducerPath]: blogApi.reducer
 };

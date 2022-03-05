@@ -7,6 +7,7 @@ import { Grid, Button, Container, Stack, Typography } from '@mui/material';
 import Page from '../../components/Page';
 import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../../components/_dashboard/blog';
 //
+import { useLoadPagingBlogsQuery } from '../../reducers/blog/api';
 import POSTS from '../../_mocks_/blog';
 
 // ----------------------------------------------------------------------
@@ -20,6 +21,8 @@ const SORT_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function Blog() {
+  const { data: blogs } = useLoadPagingBlogsQuery();
+
   return (
     <Page title="Dashboard: Blog | Minimal-UI">
       <Container>
@@ -43,8 +46,8 @@ export default function Blog() {
         </Stack>
 
         <Grid container spacing={3}>
-          {POSTS.map((post, index) => (
-            <BlogPostCard key={post.id} post={post} index={index} />
+          {blogs?.blogs?.map((post, index) => (
+            <BlogPostCard key={post._id} post={post} index={index} />
           ))}
         </Grid>
       </Container>

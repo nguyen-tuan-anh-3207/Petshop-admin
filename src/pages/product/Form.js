@@ -2,12 +2,13 @@ import { LoadingButton } from '@mui/lab';
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Form, FormikProvider, useFormik } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import * as axios from 'axios';
 import UploadImage from '../../components/Upload';
 import { useCreateProductMutation, useUploadFileMutation } from '../../reducers/product/api';
 import { useLoadPagingCategoriesQuery } from '../../reducers/category/api';
+import { useNavigate } from 'react-router-dom';
 
 const ProductSchema = Yup.object().shape({
   name: Yup.string().required('Product name is required'),
@@ -19,6 +20,8 @@ const ProductSchema = Yup.object().shape({
 export default function ProductForm() {
   const [image, setImage] = useState('');
   const [categoryId, setCategoryId] = useState('');
+
+  const navigate = useNavigate();
 
   const [createProduct, { error, isSuccess }] = useCreateProductMutation();
   const { data } = useLoadPagingCategoriesQuery();
@@ -41,6 +44,12 @@ export default function ProductForm() {
   const handleChange = (e) => {
     setCategoryId(e.target.value);
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate('/dashboard/products');
+    }
+  }, [isSuccess]);
 
   return (
     <FormikProvider value={formik}>

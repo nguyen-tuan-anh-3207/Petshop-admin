@@ -1,20 +1,23 @@
 import { LoadingButton } from '@mui/lab';
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { Form, FormikProvider, useFormik } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import UploadImage from '../../components/Upload';
+import { useCreateBlogsMutation } from '../../reducers/blog/api';
 
 const ProductSchema = Yup.object().shape({
-  name: Yup.string().required('Product name is required'),
-  description: Yup.string().required('Description is required'),
-  quantity: Yup.number().required('quantity is required'),
-  price: Yup.number().required('price is required')
+  title: Yup.string().required('Title is required'),
+  url: Yup.string().required('Url is required')
 });
 
 export default function ProductForm() {
   const [image, setImage] = useState('');
+
+  const [onCreateBlog, { isSuccess }] = useCreateBlogsMutation();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -22,8 +25,19 @@ export default function ProductForm() {
       url: ''
     },
     validationSchema: ProductSchema,
-    onSubmit: (values) => {}
+    onSubmit: (values) => {
+      onCreateBlog({
+        ...values,
+        image
+      });
+    }
   });
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate('/dashboard/blog');
+    }
+  }, [isSuccess]);
 
   const { errors, touched, handleSubmit, getFieldProps } = formik;
 
