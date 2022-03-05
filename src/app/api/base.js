@@ -44,7 +44,7 @@ export const baseApi = ({ reducerPath, entityTypes, resolvers }) => {
           }
         }),
         [`loadPaging${path}`]: build.query({
-          query: (filter) => `/${reducerPath}${filter}`,
+          query: (filter) => `/${reducerPath}${filter ?? ''}`,
           transformResponse: (response) => response.result,
           providesTags: (result) => {
             const provides = [];

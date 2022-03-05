@@ -10,21 +10,26 @@ import TableRow from '@mui/material/TableRow';
 import * as React from 'react';
 import { DEFAULT_PAGE_SIZE, DEFAULT_PAGE_INDEX } from '../constants/string';
 
+
 export default function CustomTable(props) {
 
-    const { title, data, total, columns, handleChangePageSize } = props
+    const { title, data, total, columns, handleChangePageSize, pagination } = props
     const [page, setPage] = React.useState(DEFAULT_PAGE_INDEX);
     const [rowsPerPage, setRowsPerPage] = React.useState(DEFAULT_PAGE_SIZE);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
-        handleChangePageSize(newPage, rowsPerPage)
+        if (handleChangePageSize) {
+            handleChangePageSize(newPage, rowsPerPage)
+        }
     };
 
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
-        handleChangePageSize(page, event.target.value)
+        if (handleChangePageSize) {
+            handleChangePageSize(page, event.target.value)
+        }
     };
 
     return (
@@ -55,14 +60,14 @@ export default function CustomTable(props) {
                     <TableBody>
                         {!!(data && data.length > 0) && data?.map((row) => {
                             return (
-                                <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                                <TableRow hover role="checkbox" tabIndex={-1} key={row._id}>
                                     {columns.map((column) => {
                                         const value = row[column.id];
                                         return (
                                             <TableCell key={column.id} align={column.align}>
                                                 {column.render
                                                     ? column.render(value)
-                                                    : value}
+                                                    : column.action ? column.action(row._id) : value}
                                             </TableCell>
                                         );
                                     })}
@@ -72,15 +77,17 @@ export default function CustomTable(props) {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[DEFAULT_PAGE_SIZE, 25, 100]}
-                component="div"
-                count={total}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
+            {pagination && (
+                <TablePagination
+                    rowsPerPageOptions={[DEFAULT_PAGE_SIZE, 25, 100]}
+                    component="div"
+                    count={total}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            )}
         </Paper>
     );
 }

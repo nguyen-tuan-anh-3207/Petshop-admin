@@ -16,6 +16,7 @@ import CreateCategory from './pages/category/Create';
 import { useAuth } from './hook/auth';
 import Categories from './pages/category/Categories';
 import Order from './pages/order/Order';
+import Detail from './pages/order/Detail';
 
 // ----------------------------------------------------------------------
 
@@ -30,7 +31,14 @@ export default function Router() {
         { element: <Navigate to="/dashboard/app" replace /> },
         { path: 'app', element: <DashboardApp /> },
         { path: 'user', element: <User /> },
-        { path: 'order', element: <Order /> },
+        {
+          path: 'orders',
+          element: <Outlet />,
+          children: [
+            { path: '/dashboard/orders', element: <Order /> },
+            { path: '/dashboard/orders/:id', element: <Detail /> },
+          ]
+        },
         { path: 'blog', element: <Blog /> },
         {
           path: 'blog',

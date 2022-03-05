@@ -17,7 +17,7 @@ const sidebarConfig = [
   },
   {
     title: 'order',
-    path: '/dashboard/order',
+    path: '/dashboard/orders',
     icon: getIcon(fileTextFill)
   },
   {
