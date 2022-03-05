@@ -15,14 +15,14 @@ const Detail = () => {
     console.log('detail...', order?.details)
 
     const columns = [
-        { id: 'productId', label: 'Tên sản phẩm', render: (value) => value?.name ?? '-' },
+        { id: 'product', label: 'Tên sản phẩm', render: (value) => value?.name ?? '-' },
         {
-            id: 'categoryId',
+            id: 'category',
             label: 'Danh mục',
             render: (value) => value?.name ?? '-'
         },
         {
-            id: 'productId',
+            id: 'product',
             label: 'Đơn giá',
             render: (value) => value?.price ? value.price.toLocaleString('en-US') : '-'
         },
