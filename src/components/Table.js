@@ -8,12 +8,13 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import * as React from 'react';
+import { DEFAULT_PAGE_SIZE, DEFAULT_PAGE_INDEX } from '../constants/string';
 
 export default function CustomTable(props) {
 
     const { title, data, total, columns, handleChangePageSize } = props
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(2);
+    const [page, setPage] = React.useState(DEFAULT_PAGE_INDEX);
+    const [rowsPerPage, setRowsPerPage] = React.useState(DEFAULT_PAGE_SIZE);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -72,7 +73,7 @@ export default function CustomTable(props) {
                 </Table>
             </TableContainer>
             <TablePagination
-                rowsPerPageOptions={[2, 25, 100]}
+                rowsPerPageOptions={[DEFAULT_PAGE_SIZE, 25, 100]}
                 component="div"
                 count={total}
                 rowsPerPage={rowsPerPage}
