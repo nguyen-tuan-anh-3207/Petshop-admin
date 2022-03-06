@@ -1,4 +1,6 @@
-import { TableFooter, Typography } from '@mui/material';
+import plusFill from '@iconify/icons-eva/plus-fill';
+import { Icon } from '@iconify/react';
+import { Button, Stack, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,11 +10,13 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import * as React from 'react';
-import { DEFAULT_PAGE_SIZE, DEFAULT_PAGE_INDEX } from '../constants/string';
+import { Link as RouterLink } from 'react-router-dom';
+import { DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE } from '../constants/string';
+
 
 export default function CustomTable(props) {
 
-    const { title, data, total, columns, handleChangePageSize, pagination } = props
+    const { title, data, total, columns, handleChangePageSize, pagination, link } = props
     const [page, setPage] = React.useState(DEFAULT_PAGE_INDEX);
     const [rowsPerPage, setRowsPerPage] = React.useState(DEFAULT_PAGE_SIZE);
 
@@ -38,9 +42,35 @@ export default function CustomTable(props) {
                 variant="h6"
                 id="tableTitle"
                 component="div"
+                style={{ marginTop: '1.2rem' }}
             >
                 {title}
             </Typography>
+            <Stack
+                direction="row"
+                flexWrap="wrap-reverse"
+                alignItems="center"
+                justifyContent="flex-end"
+                sx={{ mb: 5 }}
+            >
+                <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
+                    {/* <ProductFilterSidebar
+              formik={formik}
+              isOpenFilter={openFilter}
+              onResetFilter={handleResetFilter}
+              onOpenFilter={handleOpenFilter}
+              onCloseFilter={handleCloseFilter}
+            /> */}
+                </Stack>
+                {!!link && <Button
+                    variant="contained"
+                    component={RouterLink}
+                    to={link}
+                    startIcon={<Icon icon={plusFill} />}
+                >
+                    Tạo mới
+                </Button>}
+            </Stack>
             <TableContainer sx={{ maxHeight: 440 }}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>

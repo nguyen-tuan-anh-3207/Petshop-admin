@@ -22,7 +22,7 @@ const sidebarConfig = [
   },
   {
     title: 'user',
-    path: '/dashboard/user',
+    path: '/dashboard/users',
     icon: getIcon(peopleFill)
   },
   {

@@ -37,7 +37,7 @@ const UploadImage = (props) => {
           onChange={handleFileInputChange}
           value={fileImage}
         />
-        <Button variant="contained" component="span">
+        <Button variant="contained" component="span" >
           Upload
         </Button>
       </label>

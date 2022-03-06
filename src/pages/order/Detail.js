@@ -1,7 +1,7 @@
-import { Divider, Grid, Typography } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import CustomTable from 'src/components/Table';
+import CustomTable from '../../components/Table';
 import { useLoadOrdersQuery } from 'src/reducers/order/api';
 
 const Detail = () => {
@@ -51,51 +51,50 @@ const Detail = () => {
             <Divider />
 
             {!!order && (
-                <Grid container spacing={2} style={{ marginTop: '1.5rem' }}>
-                    <Grid item xs={4}>
-                        <Typography gutterBottom variant="h6" component="div">
-                            Thông tin đơn hàng
+                <React.Fragment>
+                    <Typography gutterBottom variant="h6" component="div" style={{ marginTop: '1.2rem' }}>
+                        Thông tin khách hàng
+                    </Typography>
+                    <Typography gutterBottom variant="5" component="p">
+                        Mã đơn hàng: {' '}
+                        <Typography gutterBottom variant="5" component="span" style={{ fontWeight: 'bold' }}>
+                            {order?.code}
                         </Typography>
-                        <Typography gutterBottom variant="5" component="p">
-                            Mã đơn hàng: {' '}
-                            <Typography gutterBottom variant="5" component="span" style={{ fontWeight: 'bold' }}>
-                                {order?.code}
-                            </Typography>
+                    </Typography>
+                    <Typography gutterBottom variant="5" component="p">
+                        Địa chỉ: {' '}
+                        <Typography gutterBottom variant="5" component="span" style={{ fontWeight: 'bold' }}>
+                            {order?.address}
                         </Typography>
-                        <Typography gutterBottom variant="5" component="p">
-                            Địa chỉ: {' '}
-                            <Typography gutterBottom variant="5" component="span" style={{ fontWeight: 'bold' }}>
-                                {order?.address}
-                            </Typography>
+                    </Typography>
+                    <Typography gutterBottom variant="5" component="p">
+                        Số điện thoại: {' '}
+                        <Typography gutterBottom variant="5" component="span" style={{ fontWeight: 'bold' }}>
+                            {order?.phoneNumber}
                         </Typography>
-                        <Typography gutterBottom variant="5" component="p">
-                            Số điện thoại: {' '}
-                            <Typography gutterBottom variant="5" component="span" style={{ fontWeight: 'bold' }}>
-                                {order?.phoneNumber}
-                            </Typography>
+                    </Typography>
+                    <Typography gutterBottom variant="5" component="p">
+                        Email: {' '}
+                        <Typography gutterBottom variant="5" component="span" style={{ fontWeight: 'bold' }}>
+                            {order?.customer.email}
                         </Typography>
-                        <Typography gutterBottom variant="5" component="p">
-                            Email: {' '}
-                            <Typography gutterBottom variant="5" component="span" style={{ fontWeight: 'bold' }}>
-                                {order?.customer.email}
-                            </Typography>
+                    </Typography>
+
+                    <Divider />
+
+                    <CustomTable
+                        title={'Thông tin sản phẩm'}
+                        data={order?.details}
+                        columns={columns}
+                        pagination={false}
+                    />
+                    <Typography gutterBottom variant="5" component="div" style={{ width: '100%', marginTop: '1rem' }}>
+                        Tổng tiền: {' '}
+                        <Typography gutterBottom variant="5" component="span" style={{ fontWeight: 'bold' }}>
+                            {order?.total.toLocaleString('en-US')}
                         </Typography>
-                    </Grid>
-                    <Grid item xs={8}>
-                        <CustomTable
-                            title={'Thông tin sản phẩm'}
-                            data={order?.details}
-                            columns={columns}
-                            pagination={false}
-                        />
-                        <Typography gutterBottom variant="5" component="div" style={{ width: '100%', marginTop: '1rem' }}>
-                            Tổng tiền: {' '}
-                            <Typography gutterBottom variant="5" component="span" style={{ fontWeight: 'bold' }}>
-                                {order?.total.toLocaleString('en-US')}
-                            </Typography>
-                        </Typography>
-                    </Grid>
-                </Grid>
+                    </Typography>
+                </React.Fragment>
             )}
         </React.Fragment>
     )
