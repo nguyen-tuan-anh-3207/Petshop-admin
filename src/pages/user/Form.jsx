@@ -1,37 +1,49 @@
 import { LoadingButton } from '@mui/lab';
 import { FormControl, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { Form, FormikProvider, useFormik } from 'formik';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import UploadImage from 'src/components/Upload';
+import { ModeForm } from 'src/constants/object';
 import * as Yup from 'yup';
 import validate from '../../extensions/validate';
 
-const UserSchema = Yup.object().shape({
+const CreateUserSchema = Yup.object().shape({
+    fullName: validate.username,
     username: validate.username,
     email: validate.email,
     phoneNumber: validate.phoneNumber,
+    address: validate.address,
     password: validate.password(6),
     confirmPassword: validate.confirmPassword('password'),
-    image: validate.image,
+});
+
+const EditUserSchema = Yup.object().shape({
+    fullName: validate.username,
+    username: validate.username,
+    email: validate.email,
+    phoneNumber: validate.phoneNumber,
+    address: validate.address,
 });
 
 export default function UserForm(props) {
 
     const { submit, title, mode, data, isLoading } = props
 
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState(data?.image?.url ?? '');
 
     const formik = useFormik({
         initialValues: {
+            fullName: data?.fullName ?? '',
             username: data?.username ?? '',
             email: data?.email ?? '',
             phoneNumber: data?.phoneNumber ?? '',
+            address: data?.address ?? '',
             password: data?.password ?? '',
             confirmPassword: data?.confirmPassword ?? '',
             image: data?.image ?? '',
             role: data?.role ?? 0
         },
-        validationSchema: UserSchema,
+        validationSchema: mode === ModeForm.Create ? CreateUserSchema : EditUserSchema,
         onSubmit: (values) => {
             if (submit) {
                 submit(values)
@@ -45,6 +57,8 @@ export default function UserForm(props) {
         setFieldValue('image', image)
     }, [image])
 
+    console.log('error...', errors)
+
     return (
         <FormikProvider value={formik}>
             <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
@@ -57,6 +71,16 @@ export default function UserForm(props) {
                     >
                         {title}
                     </Typography>
+                </FormControl>
+
+                <FormControl fullWidth sx={{ m: 2 }}>
+                    <TextField
+                        type="fullName"
+                        label="Họ và tên"
+                        {...getFieldProps('fullName')}
+                        error={Boolean(touched.fullName && errors.fullName)}
+                        helperText={touched.fullName && errors.fullName}
+                    />
                 </FormControl>
 
                 <FormControl fullWidth sx={{ m: 2 }}>
@@ -91,23 +115,37 @@ export default function UserForm(props) {
 
                 <FormControl fullWidth sx={{ m: 2 }}>
                     <TextField
-                        type="password"
-                        label="Mật khẩu"
-                        {...getFieldProps('password')}
-                        error={Boolean(touched.password && errors.password)}
-                        helperText={touched.password && errors.password}
+                        type="address"
+                        label="Địa chỉ"
+                        {...getFieldProps('address')}
+                        error={Boolean(touched.address && errors.address)}
+                        helperText={touched.address && errors.address}
                     />
                 </FormControl>
 
-                <FormControl fullWidth sx={{ m: 2 }}>
-                    <TextField
-                        type="confirmPassword"
-                        label="Nhập lại mật khẩu"
-                        {...getFieldProps('confirmPassword')}
-                        error={Boolean(touched.confirmPassword && errors.confirmPassword)}
-                        helperText={touched.confirmPassword && errors.confirmPassword}
-                    />
-                </FormControl>
+                {mode === ModeForm.Create && (
+                    <React.Fragment>
+                        <FormControl fullWidth sx={{ m: 2 }}>
+                            <TextField
+                                type="password"
+                                label="Mật khẩu"
+                                {...getFieldProps('password')}
+                                error={Boolean(touched.password && errors.password)}
+                                helperText={touched.password && errors.password}
+                            />
+                        </FormControl>
+
+                        <FormControl fullWidth sx={{ m: 2 }}>
+                            <TextField
+                                type="confirmPassword"
+                                label="Nhập lại mật khẩu"
+                                {...getFieldProps('confirmPassword')}
+                                error={Boolean(touched.confirmPassword && errors.confirmPassword)}
+                                helperText={touched.confirmPassword && errors.confirmPassword}
+                            />
+                        </FormControl>
+                    </React.Fragment>
+                )}
 
                 <FormControl fullWidth sx={{ m: 2 }}>
                     <Select
@@ -123,7 +161,7 @@ export default function UserForm(props) {
                 </FormControl>
 
                 <FormControl fullWidth sx={{ m: 2 }}>
-                    <UploadImage setImage={setImage} />
+                    <UploadImage setImage={setImage} image={image} />
                 </FormControl>
 
                 <FormControl sx={{ m: 2 }}>

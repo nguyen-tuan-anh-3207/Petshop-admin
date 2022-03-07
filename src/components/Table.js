@@ -11,13 +11,13 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import * as React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE } from '../constants/string';
+import { DEFAULT_PAGE_SIZE } from '../constants/string';
 
 
 export default function CustomTable(props) {
 
     const { title, data, total, columns, handleChangePageSize, pagination, link } = props
-    const [page, setPage] = React.useState(DEFAULT_PAGE_INDEX);
+    const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(DEFAULT_PAGE_SIZE);
 
     const handleChangePage = (event, newPage) => {
@@ -37,16 +37,18 @@ export default function CustomTable(props) {
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-            <Typography
-                sx={{ flex: '1 1 100%' }}
-                variant="h6"
-                id="tableTitle"
-                component="div"
-                style={{ marginTop: '1.2rem' }}
-            >
-                {title}
-            </Typography>
-            <Stack
+            {title && (
+                <Typography
+                    sx={{ flex: '1 1 100%' }}
+                    variant="h6"
+                    id="tableTitle"
+                    component="div"
+                    style={{ marginTop: '1.2rem' }}
+                >
+                    {title}
+                </Typography>
+            )}
+            {!!link && (<Stack
                 direction="row"
                 flexWrap="wrap-reverse"
                 alignItems="center"
@@ -54,23 +56,18 @@ export default function CustomTable(props) {
                 sx={{ mb: 5 }}
             >
                 <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
-                    {/* <ProductFilterSidebar
-              formik={formik}
-              isOpenFilter={openFilter}
-              onResetFilter={handleResetFilter}
-              onOpenFilter={handleOpenFilter}
-              onCloseFilter={handleCloseFilter}
-            /> */}
                 </Stack>
-                {!!link && <Button
+
+                <Button
                     variant="contained"
                     component={RouterLink}
                     to={link}
                     startIcon={<Icon icon={plusFill} />}
                 >
                     Tạo mới
-                </Button>}
-            </Stack>
+                </Button>
+            </Stack>)}
+
             <TableContainer sx={{ maxHeight: 440 }}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>

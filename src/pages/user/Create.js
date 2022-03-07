@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ModeForm } from 'src/constants/object'
+import { CREATE_SUCCESS } from 'src/constants/string'
+import { useNotification } from 'src/hook/useNotification'
 import { useCreateUsersMutation } from 'src/reducers/user/api'
 import Form from './Form'
 
@@ -19,6 +21,8 @@ const CreateUser = () => {
             navigate('/dashboard/users')
         }
     }, [isSuccess])
+
+    useNotification(error, isSuccess, CREATE_SUCCESS)
 
     return (
         <Form

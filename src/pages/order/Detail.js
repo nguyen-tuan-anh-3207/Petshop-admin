@@ -12,8 +12,6 @@ const Detail = () => {
 
     const { order } = data ?? {}
 
-    console.log('detail...', order?.details)
-
     const columns = [
         {
             id: 'product',
@@ -59,6 +57,12 @@ const Detail = () => {
                         Mã đơn hàng: {' '}
                         <Typography gutterBottom variant="5" component="span" style={{ fontWeight: 'bold' }}>
                             {order?.code}
+                        </Typography>
+                    </Typography>
+                    <Typography gutterBottom variant="5" component="p">
+                        Tên đăng nhập: {' '}
+                        <Typography gutterBottom variant="5" component="span" style={{ fontWeight: 'bold' }}>
+                            {order?.customer?.username}
                         </Typography>
                     </Typography>
                     <Typography gutterBottom variant="5" component="p">

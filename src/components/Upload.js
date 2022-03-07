@@ -10,7 +10,7 @@ const UploadImage = (props) => {
   const [fileImage, setFileImage] = useState('');
   const [previewImage, setPreviewImage] = useState('');
 
-  const { setImage } = props;
+  const { setImage, image } = props;
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
@@ -41,13 +41,17 @@ const UploadImage = (props) => {
           Upload
         </Button>
       </label>
-      {previewImage && (
+      {(previewImage && !image) ?
         <img
           src={previewImage}
           alt="chosen"
           style={{ marginTop: '32px', height: '300px', width: '300px' }}
+        /> : <img
+          src={image}
+          alt="chosen"
+          style={{ marginTop: '32px', height: '300px', width: '300px' }}
         />
-      )}
+      }
     </>
   );
 };

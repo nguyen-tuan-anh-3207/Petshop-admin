@@ -48,8 +48,14 @@ export default function UserList() {
     {
       id: '',
       label: 'Hành động',
+      align: 'center',
       action: (id) => {
-        return <Button onClick={() => navigate(`/dashboard/users/${id}`)}>Xem</Button>
+        return (
+          <React.Fragment>
+            <Button onClick={() => navigate(`/dashboard/users/${id}`)}>Xem</Button>
+            <Button onClick={() => navigate(`/dashboard/users/edit/${id}`)}>Cập nhật</Button>
+          </React.Fragment>
+        )
       }
     },
   ];

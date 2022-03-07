@@ -30,7 +30,7 @@ export default function OrderMoreMenu() {
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
 
-        <MenuItem component={RouterLink} to="#" sx={{ color: 'text.secondary' }} onClick={() => console.log('detail....')}>
+        <MenuItem component={RouterLink} to="#" sx={{ color: 'text.secondary' }}>
           <ListItemIcon>
             <Icon icon={eyeFill} width={24} height={24} />
           </ListItemIcon>

@@ -19,6 +19,7 @@ import Order from './pages/order/Order';
 import DetailOrder from './pages/order/Detail';
 import DetailUser from './pages/user/Detail';
 import CreateUser from './pages/user/Create'
+import EditUser from './pages/user/Edit';
 
 // ----------------------------------------------------------------------
 
@@ -38,7 +39,9 @@ export default function Router() {
           children: [
             { path: '/dashboard/users', element: <User /> },
             { path: '/dashboard/users/:id', element: <DetailUser /> },
-            { path: '/dashboard/users/create', element: <CreateUser /> }
+            { path: '/dashboard/users/create', element: <CreateUser /> },
+            { path: '/dashboard/users/edit/:id', element: <EditUser /> },
+
           ]
         },
         {
