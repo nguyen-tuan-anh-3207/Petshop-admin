@@ -16,7 +16,10 @@ import CreateCategory from './pages/category/Create';
 import { useAuth } from './hook/auth';
 import Categories from './pages/category/Categories';
 import Order from './pages/order/Order';
-import Detail from './pages/order/Detail';
+import DetailOrder from './pages/order/Detail';
+import DetailUser from './pages/user/Detail';
+import CreateUser from './pages/user/Create';
+import EditUser from './pages/user/Edit';
 
 // ----------------------------------------------------------------------
 
@@ -31,11 +34,21 @@ export default function Router() {
         { element: <Navigate to="/dashboard/app" replace /> },
         { path: 'app', element: <DashboardApp /> },
         {
+          path: 'users',
+          element: <Outlet />,
+          children: [
+            { path: '/dashboard/users', element: <User /> },
+            { path: '/dashboard/users/:id', element: <DetailUser /> },
+            { path: '/dashboard/users/create', element: <CreateUser /> },
+            { path: '/dashboard/users/edit/:id', element: <EditUser /> }
+          ]
+        },
+        {
           path: 'orders',
           element: <Outlet />,
           children: [
             { path: '/dashboard/orders', element: <Order /> },
-            { path: '/dashboard/orders/:id', element: <Detail /> }
+            { path: '/dashboard/orders/:id', element: <DetailOrder /> }
           ]
         },
         { path: 'blog', element: <Blog /> },
