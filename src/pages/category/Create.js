@@ -1,8 +1,10 @@
 import { LoadingButton } from '@mui/lab';
-import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Button, FormControl, TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Form, FormikProvider, useFormik } from 'formik';
 import { useState } from 'react';
+import { CREATE_SUCCESS } from '../../constants/string';
+import { useNotification } from '../../hook/useNotification';
 import * as Yup from 'yup';
 import UploadImage from '../../components/Upload';
 import { useCreateCategoriesMutation } from '../../reducers/category/api';
@@ -32,6 +34,8 @@ export default function CategoryForm() {
       createCategory({ ...values, image });
     }
   });
+
+  useNotification(error, isSuccess, CREATE_SUCCESS);
 
   const { errors, touched, handleSubmit, getFieldProps } = formik;
 

@@ -6,6 +6,8 @@ import CustomTable from 'src/components/Table';
 import { stringExtension } from 'src/extensions';
 import { ORDER_STATUS } from '../../constants';
 import { useLoadOrdersQuery, useUpdateOrdersMutation } from 'src/reducers/order/api';
+import { useNotification } from 'src/hook/useNotification';
+import { CREATE_SUCCESS, UPDATE_SUCCESS } from 'src/constants/string';
 
 const Detail = () => {
   const { id } = useParams();
@@ -55,6 +57,8 @@ const Detail = () => {
       navigate('/dashboard/orders');
     }
   });
+
+  useNotification(error, isSuccess, CREATE_SUCCESS);
 
   return (
     <React.Fragment>

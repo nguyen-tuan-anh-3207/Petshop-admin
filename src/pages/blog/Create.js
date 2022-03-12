@@ -3,6 +3,8 @@ import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } fr
 import { Form, FormikProvider, useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CREATE_SUCCESS } from '../../constants/string';
+import { useNotification } from '../../hook/useNotification';
 import * as Yup from 'yup';
 
 import UploadImage from '../../components/Upload';
@@ -16,7 +18,7 @@ const ProductSchema = Yup.object().shape({
 export default function ProductForm() {
   const [image, setImage] = useState('');
 
-  const [onCreateBlog, { isSuccess, isSubmitting }] = useCreateBlogsMutation();
+  const [onCreateBlog, { error, isSuccess, isSubmitting }] = useCreateBlogsMutation();
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -38,6 +40,8 @@ export default function ProductForm() {
       navigate('/dashboard/blog');
     }
   }, [isSuccess]);
+
+  useNotification(error, isSuccess, CREATE_SUCCESS);
 
   const { errors, touched, handleSubmit, getFieldProps } = formik;
 

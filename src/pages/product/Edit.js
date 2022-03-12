@@ -8,6 +8,8 @@ import UploadImage from '../../components/Upload';
 import { useLoadProductsQuery, useUpdateProductsMutation } from '../../reducers/product/api';
 import { useLoadPagingCategoriesQuery } from '../../reducers/category/api';
 import { useParams } from 'react-router-dom';
+import { useNotification } from 'src/hook/useNotification';
+import { CREATE_SUCCESS, UPDATE_SUCCESS } from 'src/constants/string';
 
 const ProductSchema = Yup.object().shape({
   name: Yup.string().required('Product name is required'),
@@ -22,7 +24,7 @@ export default function Edit() {
   const [image, setImage] = useState('');
   const [categoryId, setCategoryId] = useState(dataProduct?.product.categoryId._id);
 
-  const [updateProduct, { error, isSuccess }] = useUpdateProductsMutation();
+  const [updateProduct, { error, isSuccess, isSubmitting }] = useUpdateProductsMutation();
 
   const { data } = useLoadPagingCategoriesQuery();
   const navigate = useNavigate();
@@ -55,6 +57,8 @@ export default function Edit() {
       navigate('/dashboard/products');
     }
   }, [isSuccess]);
+
+  useNotification(error, isSuccess, UPDATE_SUCCESS);
 
   return (
     <FormikProvider value={formik}>
@@ -119,12 +123,7 @@ export default function Edit() {
         </FormControl>
 
         <FormControl sx={{ m: 2 }}>
-          <LoadingButton
-            size="large"
-            type="submit"
-            variant="contained"
-            // loading={isSubmitting}
-          >
+          <LoadingButton size="large" type="submit" variant="contained" loading={isSubmitting}>
             Cập nhật sản phẩm
           </LoadingButton>
         </FormControl>

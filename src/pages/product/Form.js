@@ -9,6 +9,8 @@ import UploadImage from '../../components/Upload';
 import { useCreateProductMutation, useUploadFileMutation } from '../../reducers/product/api';
 import { useLoadPagingCategoriesQuery } from '../../reducers/category/api';
 import { useNavigate } from 'react-router-dom';
+import { useNotification } from 'src/hook/useNotification';
+import { CREATE_SUCCESS } from 'src/constants/string';
 
 const ProductSchema = Yup.object().shape({
   name: Yup.string().required('Product name is required'),
@@ -50,6 +52,8 @@ export default function ProductForm() {
       navigate('/dashboard/products');
     }
   }, [isSuccess]);
+
+  useNotification(error, isSuccess, CREATE_SUCCESS);
 
   return (
     <FormikProvider value={formik}>
