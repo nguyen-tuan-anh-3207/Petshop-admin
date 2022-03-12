@@ -9,6 +9,7 @@ import { categoryApi } from '../reducers/category/api';
 import { blogApi } from '../reducers/blog/api';
 import { userApi } from '../reducers/user/api';
 import { orderApi } from '../reducers/order/api';
+import { homeApi } from '../reducers/home/api';
 
 export const history = createBrowserHistory();
 
@@ -27,7 +28,8 @@ export const middleware = (getDefaultMiddleware) =>
     categoryApi.middleware,
     blogApi.middleware,
     userApi.middleware,
-    orderApi.middleware
+    orderApi.middleware,
+    homeApi.middleware
   );
 
 export const rootReducer = {
@@ -38,5 +40,6 @@ export const rootReducer = {
   [categoryApi.reducerPath]: categoryApi.reducer,
   [blogApi.reducerPath]: blogApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
-  [orderApi.reducerPath]: orderApi.reducer
+  [orderApi.reducerPath]: orderApi.reducer,
+  [homeApi.reducerPath]: homeApi.reducer
 };

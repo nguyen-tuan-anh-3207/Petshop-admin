@@ -16,7 +16,7 @@ const ProductSchema = Yup.object().shape({
 export default function ProductForm() {
   const [image, setImage] = useState('');
 
-  const [onCreateBlog, { isSuccess }] = useCreateBlogsMutation();
+  const [onCreateBlog, { isSuccess, isSubmitting }] = useCreateBlogsMutation();
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -47,7 +47,7 @@ export default function ProductForm() {
         <FormControl fullWidth sx={{ m: 2 }}>
           <TextField
             type="title"
-            label="Title"
+            label="Tiêu đề"
             {...getFieldProps('title')}
             error={Boolean(touched.title && errors.title)}
             helperText={touched.title && errors.title}
@@ -70,13 +70,8 @@ export default function ProductForm() {
         </FormControl>
 
         <FormControl sx={{ m: 2 }}>
-          <LoadingButton
-            size="large"
-            type="submit"
-            variant="contained"
-            // loading={isSubmitting}
-          >
-            Create
+          <LoadingButton size="large" type="submit" variant="contained" loading={isSubmitting}>
+            Tạo blog
           </LoadingButton>
         </FormControl>
       </Form>

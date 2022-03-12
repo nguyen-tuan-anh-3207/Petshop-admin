@@ -36,7 +36,7 @@ export default function Blog() {
             to="/dashboard/blog/create"
             startIcon={<Icon icon={plusFill} />}
           >
-            New Post
+            Tạo blog
           </Button>
         </Stack>
 

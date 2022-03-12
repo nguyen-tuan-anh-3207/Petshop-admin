@@ -30,13 +30,12 @@ export default function Router() {
       children: [
         { element: <Navigate to="/dashboard/app" replace /> },
         { path: 'app', element: <DashboardApp /> },
-        { path: 'user', element: <User /> },
         {
           path: 'orders',
           element: <Outlet />,
           children: [
             { path: '/dashboard/orders', element: <Order /> },
-            { path: '/dashboard/orders/:id', element: <Detail /> },
+            { path: '/dashboard/orders/:id', element: <Detail /> }
           ]
         },
         { path: 'blog', element: <Blog /> },

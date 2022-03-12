@@ -47,7 +47,7 @@ export default function EcommerceShop() {
     <Page title="Dashboard: Products | Minimal-UI">
       <Container>
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Products
+          Sản phẩm
         </Typography>
 
         <Stack
@@ -72,7 +72,7 @@ export default function EcommerceShop() {
             to="/dashboard/products/create"
             startIcon={<Icon icon={plusFill} />}
           >
-            New Product
+            Tạo sản phẩm
           </Button>
         </Stack>
 

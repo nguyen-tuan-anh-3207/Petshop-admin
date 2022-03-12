@@ -23,7 +23,7 @@ export default function ProductForm() {
 
   const navigate = useNavigate();
 
-  const [createProduct, { error, isSuccess }] = useCreateProductMutation();
+  const [createProduct, { error, isSuccess, isSubmitting }] = useCreateProductMutation();
   const { data } = useLoadPagingCategoriesQuery();
 
   const formik = useFormik({
@@ -57,7 +57,7 @@ export default function ProductForm() {
         <FormControl fullWidth sx={{ m: 2 }}>
           <TextField
             type="name"
-            label="Name"
+            label="Tên"
             {...getFieldProps('name')}
             error={Boolean(touched.name && errors.name)}
             helperText={touched.name && errors.name}
@@ -69,7 +69,7 @@ export default function ProductForm() {
             multiline
             autoComplete="current-password"
             type="description"
-            label="Description"
+            label="Miêu tả"
             {...getFieldProps('description')}
             error={Boolean(touched.description && errors.description)}
             helperText={touched.description && errors.description}
@@ -78,7 +78,7 @@ export default function ProductForm() {
         <FormControl fullWidth sx={{ m: 2 }}>
           <TextField
             type="number"
-            label="Quantity"
+            label="Số lượng"
             {...getFieldProps('quantity')}
             error={Boolean(touched.quantity && errors.quantity)}
             helperText={touched.quantity && errors.quantity}
@@ -86,7 +86,7 @@ export default function ProductForm() {
         </FormControl>
         <FormControl fullWidth sx={{ m: 2 }}>
           <TextField
-            label="Price"
+            label="Giá"
             {...getFieldProps('price')}
             error={Boolean(touched.price && errors.price)}
             helperText={touched.price && errors.price}
@@ -94,12 +94,12 @@ export default function ProductForm() {
         </FormControl>
 
         <FormControl fullWidth sx={{ m: 2 }}>
-          <InputLabel id="demo-simple-select-label">Category</InputLabel>
+          <InputLabel id="demo-simple-select-label">Loại sản phẩm</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={categoryId}
-            label="Category"
+            label="Loại sản phẩm"
             onChange={handleChange}
           >
             {data?.categories?.map((category) => (
@@ -114,13 +114,8 @@ export default function ProductForm() {
         </FormControl>
 
         <FormControl sx={{ m: 2 }}>
-          <LoadingButton
-            size="large"
-            type="submit"
-            variant="contained"
-            // loading={isSubmitting}
-          >
-            Create
+          <LoadingButton size="large" type="submit" variant="contained" loading={isSubmitting}>
+            Tạo sản phẩm
           </LoadingButton>
         </FormControl>
       </Form>

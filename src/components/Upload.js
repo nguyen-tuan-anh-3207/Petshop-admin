@@ -38,7 +38,7 @@ const UploadImage = (props) => {
           value={fileImage}
         />
         <Button variant="contained" component="span">
-          Upload
+          Tải ảnh
         </Button>
       </label>
       {previewImage && (

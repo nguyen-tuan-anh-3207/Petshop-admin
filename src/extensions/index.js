@@ -1,3 +1,4 @@
-import datetime from './date'
+import datetime from './date';
+import stringExtension from './string';
 
-export { datetime }
+export { datetime, stringExtension };

@@ -32,7 +32,7 @@ export default function Categories() {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Category
+            Loại sản phẩm
           </Typography>
           <Button
             variant="contained"
@@ -40,7 +40,7 @@ export default function Categories() {
             to="/dashboard/category/create"
             startIcon={<Icon icon={plusFill} />}
           >
-            New Category
+            Tạo loại sản phẩm
           </Button>
         </Stack>
 

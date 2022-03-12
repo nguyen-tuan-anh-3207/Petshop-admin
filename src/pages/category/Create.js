@@ -19,7 +19,7 @@ const ProductSchema = Yup.object().shape({
 export default function CategoryForm() {
   const [image, setImage] = useState('');
 
-  const [createCategory, { error, isSuccess }] = useCreateCategoriesMutation();
+  const [createCategory, { error, isSuccess, isSubmitting }] = useCreateCategoriesMutation();
 
   const formik = useFormik({
     initialValues: {
@@ -41,7 +41,7 @@ export default function CategoryForm() {
         <FormControl fullWidth sx={{ m: 2 }}>
           <TextField
             type="name"
-            label="Name"
+            label="Tên"
             {...getFieldProps('name')}
             error={Boolean(touched.name && errors.name)}
             helperText={touched.name && errors.name}
@@ -53,7 +53,7 @@ export default function CategoryForm() {
             multiline
             autoComplete="current-password"
             type="description"
-            label="Description"
+            label="Miêu tả"
             {...getFieldProps('description')}
             error={Boolean(touched.description && errors.description)}
             helperText={touched.description && errors.description}
@@ -65,8 +65,8 @@ export default function CategoryForm() {
         </FormControl>
 
         <FormControl sx={{ m: 2 }}>
-          <LoadingButton size="large" type="submit" variant="contained">
-            Create
+          <LoadingButton size="large" type="submit" variant="contained" loading={isSubmitting}>
+            Tạo
           </LoadingButton>
         </FormControl>
       </Form>

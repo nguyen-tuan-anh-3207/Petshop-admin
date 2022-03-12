@@ -6,8 +6,13 @@ export const orderApi = baseApi({
   resolvers: (builder) => ({})
 });
 
-export const { useLoadOrdersQuery, useLoadPagingOrdersQuery, useDeleteOrdersMutation } = orderApi;
+export const {
+  useLoadOrdersQuery,
+  useLoadPagingOrdersQuery,
+  useDeleteOrdersMutation,
+  useUpdateOrdersMutation
+} = orderApi;
 
 export const {
-  endpoints: { loadOrders, loadPagingOrders, deleteOrders }
+  endpoints: { loadOrders, loadPagingOrders, deleteOrders, updateOrders }
 } = orderApi;
