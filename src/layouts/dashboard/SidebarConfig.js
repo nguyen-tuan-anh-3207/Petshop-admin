@@ -26,7 +26,7 @@ const sidebarConfig = [
     icon: getIcon(peopleFill)
   },
   {
-    title: 'product',
+    title: 'Sản phẩm',
     path: '/dashboard/products',
     icon: getIcon(briefcaseFill)
   },

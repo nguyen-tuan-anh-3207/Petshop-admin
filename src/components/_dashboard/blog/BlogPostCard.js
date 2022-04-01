@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
+import { Icon } from '@iconify/react';
+
 // material
 import { alpha, styled } from '@mui/material/styles';
-import { Card, Grid, Typography, CardContent } from '@mui/material';
+import { Card, Grid, Typography, CardContent, IconButton } from '@mui/material';
 // utils
 import { fDate } from '../../../utils/formatTime';
+import { useDeleteBlogsMutation } from '../../../reducers/blog/api';
 
 // ----------------------------------------------------------------------
 
@@ -40,6 +43,12 @@ export default function BlogPostCard({ post, index }) {
   const { image, title, createdAt, url } = post;
   const latestPostLarge = index === 0;
   const latestPost = index === 1 || index === 2;
+
+  const [onDelete] = useDeleteBlogsMutation();
+
+  const handleDelete = () => {
+    onDelete(post._id);
+  };
 
   return (
     <Grid item xs={12} sm={latestPostLarge ? 12 : 6} md={latestPostLarge ? 6 : 3}>
@@ -103,6 +112,9 @@ export default function BlogPostCard({ post, index }) {
           >
             {title}
           </TitleStyle>
+          <IconButton onClick={handleDelete}>
+            <Icon icon="eva:close-circle-outline" width={22} height={22} />
+          </IconButton>
         </CardContent>
       </Card>
     </Grid>
