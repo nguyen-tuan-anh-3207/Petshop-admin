@@ -1,10 +1,8 @@
 import { LoadingButton } from '@mui/lab';
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { Form, FormikProvider, useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
-import * as axios from 'axios';
 import UploadImage from '../../components/Upload';
 import { useCreateProductMutation, useUploadFileMutation } from '../../reducers/product/api';
 import { useLoadPagingCategoriesQuery } from '../../reducers/category/api';
@@ -15,7 +13,7 @@ import { CREATE_SUCCESS } from 'src/constants/string';
 const ProductSchema = Yup.object().shape({
   name: Yup.string().required('Product name is required'),
   description: Yup.string().required('Description is required'),
-  quantity: Yup.number().required('quantity is required'),
+  quantity: Yup.number().min(1).required('quantity is required'),
   price: Yup.number().required('price is required')
 });
 
@@ -33,7 +31,7 @@ export default function ProductForm() {
       name: '',
       description: '',
       price: 0,
-      quantity: 0
+      quantity: 1
     },
     validationSchema: ProductSchema,
     onSubmit: (values) => {
@@ -82,6 +80,7 @@ export default function ProductForm() {
         <FormControl fullWidth sx={{ m: 2 }}>
           <TextField
             type="number"
+            inputProps={{ inputProps: { min: 1 } }}
             label="Số lượng"
             {...getFieldProps('quantity')}
             error={Boolean(touched.quantity && errors.quantity)}
