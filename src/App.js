@@ -1,5 +1,4 @@
 import { Provider } from 'react-redux';
-import { ToastProvider } from 'react-toast-notifications';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { store } from './app/store';
@@ -10,6 +9,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Router from './routes';
 // theme
 import ThemeConfig from './theme';
+import Notification from './components/Notification';
 import GlobalStyles from './theme/globalStyles';
 
 export default function App() {
@@ -18,14 +18,13 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <ToastProvider autoDismiss autoDismissTimeout={2000}>
-          <ThemeConfig>
-            <ScrollToTop />
-            <GlobalStyles />
-            <BaseOptionChartStyle />
-            <Router />
-          </ThemeConfig>
-        </ToastProvider>
+        <ThemeConfig>
+          <ScrollToTop />
+          <GlobalStyles />
+          <BaseOptionChartStyle />
+          <Notification />
+          <Router />
+        </ThemeConfig>
       </PersistGate>
     </Provider>
   );

@@ -3,8 +3,6 @@ import { Box, Container, Grid, Typography } from '@mui/material';
 // components
 import Page from '../components/Page';
 import {
-  AppConversionRates,
-  AppCurrentSubject,
   AppCurrentVisits,
   AppItemOrders,
   AppNewUsers,
@@ -41,14 +39,6 @@ export default function DashboardApp() {
 
           <Grid item xs={12} md={6} lg={4}>
             <AppCurrentVisits />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={8}>
-            <AppConversionRates />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
-            <AppCurrentSubject />
           </Grid>
         </Grid>
       </Container>

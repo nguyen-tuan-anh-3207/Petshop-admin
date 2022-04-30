@@ -5,6 +5,9 @@ export default {
     if (!status || status === ORDER_STATUS.PLACED) {
       return 'Đang đặt hàng';
     }
+    if (status === ORDER_STATUS.CANCELED) {
+      return 'Đã hủy đơn hàng';
+    }
     return 'Đã vận chuyển';
   }
 };

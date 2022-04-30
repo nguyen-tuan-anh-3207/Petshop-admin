@@ -1,15 +1,14 @@
 import { useEffect } from 'react';
-import { useToasts } from 'react-toast-notifications';
+import { toast } from 'react-toastify';
 
 export const useNotification = (error, isSuccess, message) => {
-  const { addToast } = useToasts();
   useEffect(() => {
     if (error) {
       const message = error?.message?.split(':')[0];
-      addToast(message, { appearance: 'error' });
+      toast.error(message);
     }
     if (isSuccess) {
-      addToast(message, { appearance: 'success' });
+      toast.success(message);
     }
   }, [error, isSuccess]);
 };

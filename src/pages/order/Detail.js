@@ -52,6 +52,13 @@ const Detail = () => {
     });
   };
 
+  const handleCancel = () => {
+    onUpdate({
+      orderId: id,
+      status: ORDER_STATUS.CANCELED
+    });
+  };
+
   useEffect(() => {
     if (isSuccess) {
       navigate('/dashboard/orders');
@@ -106,15 +113,27 @@ const Detail = () => {
             </Typography>
             {/* update order Status */}
             {(!order?.status || order?.status === ORDER_STATUS.PLACED) && (
-              <LoadingButton
-                size="large"
-                type="button"
-                onClick={handleUpdate}
-                variant="contained"
-                loading={isSubmitting}
-              >
-                Vận chuyển
-              </LoadingButton>
+              <>
+                <LoadingButton
+                  size="large"
+                  type="button"
+                  onClick={handleUpdate}
+                  variant="contained"
+                  loading={isSubmitting}
+                >
+                  Vận chuyển
+                </LoadingButton>
+
+                <LoadingButton
+                  size="large"
+                  type="button"
+                  onClick={handleCancel}
+                  variant="contained"
+                  loading={isSubmitting}
+                >
+                  Hủy đơn hàng
+                </LoadingButton>
+              </>
             )}
           </Grid>
           <Grid item xs={8}>

@@ -90,6 +90,8 @@ export default function ProductForm() {
         <FormControl fullWidth sx={{ m: 2 }}>
           <TextField
             label="Giá"
+            type="number"
+            inputProps={{ inputProps: { min: 1 } }}
             {...getFieldProps('price')}
             error={Boolean(touched.price && errors.price)}
             helperText={touched.price && errors.price}
