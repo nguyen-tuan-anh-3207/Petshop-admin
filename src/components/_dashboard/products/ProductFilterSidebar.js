@@ -13,8 +13,6 @@ import {
   Drawer,
   Rating,
   Divider,
-  Checkbox,
-  FormGroup,
   IconButton,
   Typography,
   RadioGroup,
@@ -22,7 +20,6 @@ import {
 } from '@mui/material';
 //
 import Scrollbar from '../../Scrollbar';
-import ColorManyPicker from '../../ColorManyPicker';
 import { useLoadPagingCategoriesQuery } from '../../../reducers/category/api';
 
 // ----------------------------------------------------------------------
@@ -35,22 +32,6 @@ export const SORT_BY_OPTIONS = [
 ];
 export const FILTER_GENDER_OPTIONS = ['Men', 'Women', 'Kids'];
 export const FILTER_CATEGORY_OPTIONS = ['All', 'Shose', 'Apparel', 'Accessories'];
-export const FILTER_RATING_OPTIONS = ['up4Star', 'up3Star', 'up2Star', 'up1Star'];
-export const FILTER_PRICE_OPTIONS = [
-  { value: 'below', label: 'Below $25' },
-  { value: 'between', label: 'Between $25 - $75' },
-  { value: 'above', label: 'Above $75' }
-];
-export const FILTER_COLOR_OPTIONS = [
-  '#00AB55',
-  '#000000',
-  '#FFFFFF',
-  '#FFC0CB',
-  '#FF4842',
-  '#1890FF',
-  '#94D82D',
-  '#FFC107'
-];
 
 // ----------------------------------------------------------------------
 
@@ -81,7 +62,7 @@ export default function ShopFilterSidebar({
         endIcon={<Icon icon={roundFilterList} />}
         onClick={onOpenFilter}
       >
-        Filters&nbsp;
+        Lọc&nbsp;
       </Button>
 
       <FormikProvider value={formik}>
@@ -101,7 +82,7 @@ export default function ShopFilterSidebar({
               sx={{ px: 1, py: 2 }}
             >
               <Typography variant="subtitle1" sx={{ ml: 1 }}>
-                Filters
+                Lọc
               </Typography>
               <IconButton onClick={onCloseFilter}>
                 <Icon icon={closeFill} width={20} height={20} />
@@ -114,7 +95,7 @@ export default function ShopFilterSidebar({
               <Stack spacing={3} sx={{ p: 3 }}>
                 <div>
                   <Typography variant="subtitle1" gutterBottom>
-                    Category
+                    Loại sản phẩm
                   </Typography>
                   <RadioGroup {...getFieldProps('category')}>
                     {data?.categories?.map((item) => (
@@ -123,22 +104,6 @@ export default function ShopFilterSidebar({
                         value={item._id}
                         control={<Radio />}
                         label={item.name}
-                      />
-                    ))}
-                  </RadioGroup>
-                </div>
-
-                <div>
-                  <Typography variant="subtitle1" gutterBottom>
-                    Price
-                  </Typography>
-                  <RadioGroup {...getFieldProps('priceRange')}>
-                    {FILTER_PRICE_OPTIONS.map((item) => (
-                      <FormControlLabel
-                        key={item.value}
-                        value={item.value}
-                        control={<Radio />}
-                        label={item.label}
                       />
                     ))}
                   </RadioGroup>
@@ -156,7 +121,7 @@ export default function ShopFilterSidebar({
                 onClick={onResetFilter}
                 startIcon={<Icon icon={roundClearAll} />}
               >
-                Clear All
+                Xóa tất cả
               </Button>
             </Box>
           </Drawer>

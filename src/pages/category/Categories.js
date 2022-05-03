@@ -5,24 +5,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Grid, Button, Container, Stack, Typography } from '@mui/material';
 // components
 import Page from '../../components/Page';
-import {
-  CategoryPostCard,
-  CategoryPostsSort,
-  CategoryPostsSearch
-} from '../../components/_dashboard/category';
+import { CategoryPostCard } from '../../components/_dashboard/category';
 import { useLoadPagingCategoriesQuery } from '../../reducers/category/api';
-//
-import POSTS from '../../_mocks_/blog';
-
-// ----------------------------------------------------------------------
-
-const SORT_OPTIONS = [
-  { value: 'latest', label: 'Latest' },
-  { value: 'popular', label: 'Popular' },
-  { value: 'oldest', label: 'Oldest' }
-];
-
-// ----------------------------------------------------------------------
 
 export default function Categories() {
   const { data } = useLoadPagingCategoriesQuery();
@@ -42,11 +26,6 @@ export default function Categories() {
           >
             Tạo loại sản phẩm
           </Button>
-        </Stack>
-
-        <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
-          <CategoryPostsSearch posts={POSTS} />
-          <CategoryPostsSort options={SORT_OPTIONS} />
         </Stack>
 
         <Grid container spacing={3}>

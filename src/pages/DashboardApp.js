@@ -2,13 +2,7 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 // components
 import Page from '../components/Page';
-import {
-  AppCurrentVisits,
-  AppItemOrders,
-  AppNewUsers,
-  AppWebsiteVisits,
-  AppWeeklySales
-} from '../components/_dashboard/app';
+import { AppItemOrders, AppNewUsers, AppWeeklySales } from '../components/_dashboard/app';
 import { useLoadPagingHomeQuery } from '../reducers/home/api';
 
 // ----------------------------------------------------------------------
@@ -31,14 +25,6 @@ export default function DashboardApp() {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <AppItemOrders orderDelivered={data?.orderDelivered} />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={8}>
-            <AppWebsiteVisits />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
-            <AppCurrentVisits />
           </Grid>
         </Grid>
       </Container>

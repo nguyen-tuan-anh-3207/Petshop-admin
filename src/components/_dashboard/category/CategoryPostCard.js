@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 
 // material
@@ -40,12 +40,19 @@ CategoryPostCard.propTypes = {
 export default function CategoryPostCard({ category, index }) {
   const { image, name } = category;
   const latestPostLarge = index === 0;
+
+  const navigate = useNavigate();
+
   const latestPost = index === 1 || index === 2;
 
   const [onDelete] = useDeleteCategoriesMutation();
 
   const handleDelete = () => {
     onDelete(category._id);
+  };
+
+  const handleEdit = () => {
+    navigate(category._id);
   };
 
   return (
@@ -86,7 +93,7 @@ export default function CategoryPostCard({ category, index }) {
           }}
         >
           <TitleStyle
-            to="#"
+            to={category._id}
             color="inherit"
             variant="subtitle2"
             underline="hover"
@@ -101,7 +108,7 @@ export default function CategoryPostCard({ category, index }) {
             {name}
           </TitleStyle>
           <IconButton>
-            <Icon icon="eva:color-picker-outline" width={22} height={22} />
+            <Icon icon="eva:color-picker-outline" width={22} height={22} onClick={handleEdit} />
           </IconButton>
           <IconButton onClick={handleDelete}>
             <Icon icon="eva:close-circle-outline" width={22} height={22} />

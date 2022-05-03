@@ -9,9 +9,6 @@ import * as Yup from 'yup';
 import UploadImage from '../../components/Upload';
 import { useCreateCategoriesMutation } from '../../reducers/category/api';
 
-const Input = styled('input')({
-  display: 'none'
-});
 
 const ProductSchema = Yup.object().shape({
   name: Yup.string().required('Category name is required'),

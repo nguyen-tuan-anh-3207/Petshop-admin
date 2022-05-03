@@ -15,6 +15,7 @@ import EditProduct from './pages/product/Edit';
 import CreateCategory from './pages/category/Create';
 import { useAuth } from './hook/auth';
 import Categories from './pages/category/Categories';
+import EditCategory from './pages/category/Edit';
 import Order from './pages/order/Order';
 import DetailOrder from './pages/order/Detail';
 import DetailUser from './pages/user/Detail';
@@ -74,7 +75,7 @@ export default function Router() {
           element: <Outlet />,
           children: [
             { path: '/dashboard/category', element: <Categories /> },
-            { path: '/dashboard/category/:id', element: <CreateProduct /> },
+            { path: '/dashboard/category/:id', element: <EditCategory /> },
             { path: '/dashboard/category/create', element: <CreateCategory /> }
           ]
         }
